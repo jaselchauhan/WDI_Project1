@@ -1,10 +1,12 @@
 $(document).ready(function() {
+  
   console.log("jQuery has loaded");
 
   var $tileArray = $("li");
   console.log($tileArray);
 
   var clickedIndex=0;
+  var counter = 0;
 
   var winnersObj = {"winningCombos":[
 
@@ -20,7 +22,7 @@ $(document).ready(function() {
 
     ]}
 
-    //try to make this into an array. 
+    //try to make this into an array to consider diff sized boards without having to manually hardcode in related tiles... there must be a mathematical way!!!
 
   
     // for each grid in my tilesArray, assign a event listener on mouse click  
@@ -33,7 +35,6 @@ $(document).ready(function() {
 
         move(clickedIndex);
 
-            
         hasWon();
 
 
@@ -64,35 +65,34 @@ $(document).ready(function() {
 
 
     function hasWon(){
-      //if all tiles in the array contain a class of green then you've won!
+
       var className = $($tileArray[0]).attr('class');
-      console.log(className);
 
       //iterate through the squares in tileArray. if they have class of green then add 1 to the hasWonCounter. outside of the loop function if the hasWonCounter is equal to the length of the tileArray then you've won!
 
-      // $tileArray.each(function (i, value) {
-      //   console.log($($tileArray[i]));
-
-      // });
+      $tileArray.each(function (i, value) {
+        console.log($($tileArray[i]));
 
 
       if(className == "green"){
-        console.log("success");
+        console.log("success. counter will now increment.");
+        counter ++;
+        console.log(counter);
       }
 
-    }
+      if(counter == $tileArray.length){
+        console.log("YOU'VE WON!!!!1");
+        counter = 0;
+      }
+
+
+    });
+
+
+
+
 
 });
-
-
-//create a move function - move (clickedTileIndex)  -
-//create a hasWon function - if all tiles in array have a class of green then you've won
-
-
-
-
-
-
 
 
 
