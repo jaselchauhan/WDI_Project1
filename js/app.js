@@ -3,6 +3,7 @@ $(document).ready(function() {
   console.log("jQuery has loaded");
 
   var $tileArray = $("li");
+  var row_length = Math.sqrt($tileArray.length); 
 
   var clickedIndex=0;
   var counter = 0;
@@ -29,12 +30,21 @@ $(document).ready(function() {
       $($tileArray[i]).click(function() {
 
         clickedIndex = this.id;
+        // console.log(clickedIndex + " from main function call")
 
         // move(clickedIndex);
 
         // hasWon();
 
-        arrayRelationships();
+        // arrayRelationships();
+
+        isTopRow(clickedIndex);
+
+        isBottomRow(clickedIndex);
+
+        isLeftColumn(clickedIndex);
+
+        isRightColumn(clickedIndex);
 
       })
     })
@@ -94,28 +104,86 @@ $(document).ready(function() {
       });
     }
 
+    function isTopRow (clickedIndex){
+     
+      if(parseInt(clickedIndex) <= row_length-1){
+        console.log("in top row");
+        return true;
+      } else {
+        console.log("not on top row");
+        return false;
+      }
+    }
+
+    function isBottomRow(clickedIndex){
+      if(parseInt(clickedIndex) > $tileArray.length - (row_length+1)) {
+        console.log("in bottom row");
+        return true;
+      } else {
+        console.log("not in bottom row");
+        return false;
+      }
+    }
+
+    function isLeftColumn(clickedIndex){
+
+      if(parseInt(clickedIndex) ==0 ){
+        console.log("zeroeth index, in left column");
+        return true;
+      }
+      else if(parseInt(clickedIndex)%(row_length) ==0){
+        console.log("is in left column");
+        return true;
+      } else {
+        console.log("is not in left column");
+        return false;
+      }
+    }
+
+    function isRightColumn(clickedIndex){
+
+      if(parseInt(clickedIndex) === $tileArray.length -1 ){
+        console.log("last element in array");
+        return true;
+      }
+
+      else if((parseInt(clickedIndex) + 1) % row_length == 0){
+        console.log("in right column");
+        return true;
+      } else {
+        console.log("is not in right column");
+        return false;
+      }
+    }
+
+
+
     function arrayRelationships () {
 
       //get the index of the clicked tile. then for this also find its related tiles by finding their indexes. Store these all indexes including the clicked tile index into an array which will be used to iterate over and add the toggle class functionality.
       var myArray = [];
-      
-      var row_length = Math.sqrt($tileArray.length); 
 
       var indexAsNumber = parseInt(clickedIndex);
       myArray.push(indexAsNumber);
-      var p = typeof indexAsNumber;
+      
+      //before pushing all relative tiles to an array, run 4 functions on the clickedIndex to find out where it is on the board and then only pass the relevant rel1, rel2, rel3 and rel4 into the array based upon the results of the functions
+
+
 
       var rel1 = indexAsNumber + 1;
       var rel2 = indexAsNumber -1;
       var rel3 = indexAsNumber - row_length;
       var rel4 = indexAsNumber + row_length;
 
+
+
+
+
+
       myArray.push(rel1,rel2,rel3,rel4);
       console.log(myArray);
 
       for (i=0;i<myArray.length; i++){
-
-        // console.log(myArray[i]);
 
         //conditions which I need to account for - if on top row, bottom row, left row or right row do something different, otherwise iterate through all items myArray and toggle their class.
 
@@ -127,15 +195,21 @@ $(document).ready(function() {
 
         //for the right hand side - 
 
-        if(myArray[i] < 0 || myArray[i] > $tileArray.length){
-          // console.log(myArray[i] + " isn't being considered as it's not on the board");
+        // for the remaining conditions
+
+        if(myArray[i] < 0 || myArray[i] > $tileArray.length -1 ){
+          console.log(myArray[i] + " isn't being considered as it's not on the board");
           // console.log(myArray.length + " is the length of the array");
-        } else{
+       
+        // } else if (myArray[i] % row_length === 0){ 
+        //     console.log("this tile is on");
+        // }
 
             var x = $tileArray[myArray[i]].id;
             var str = "#"+x;
-            var $tile = $(str);
+            var $tile = $(String(str));
             $tile.toggleClass("green");
+
         }
 
       }
