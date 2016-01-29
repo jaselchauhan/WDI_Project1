@@ -1,7 +1,8 @@
 $(document).ready(function() {
   console.log("jQuery has loaded");
 
-  var $grid = $(".gridBoxes");
+  var $tileArray = $("li");
+  console.log($tileArray);
 
   var clickedIndex=0;
 
@@ -19,39 +20,74 @@ $(document).ready(function() {
 
     ]}
 
-    // function move(clickedTileIndex){
-      
-    // }
-
-
-
+    //try to make this into an array. 
 
   
-    $grid.each(function (i, value) { 
+    // for each grid in my tilesArray, assign a event listener on mouse click  
+    $tileArray.each(function (i, value) { 
 
-      $($grid[i]).click(function() {
+      $($tileArray[i]).click(function() {
 
         clickedIndex = this.id;
+        // console.log(clickedIndex);
 
-        var relTileArr = winnersObj.winningCombos[clickedIndex].relatedTiles;
+        move(clickedIndex);
 
-        for (i=0;i<relTileArr.length; i++){
+            
+        hasWon();
 
-          var x = $grid[relTileArr[i]].id;
-          var str = "#"+x;
-          var $tile = $(str);
-          $tile.toggleClass("green");
 
-        }
-        $(this).toggleClass("green");        
+
 
       })
     })
 
+    function move(clickedIndex){
+
+      var clicked = $tileArray[clickedIndex].id;
+
+      var clickStr = "#"+clicked;
+      var $clickedTile = $(clickStr);
+
+      $clickedTile.toggleClass("green");
+      
+      var relTileArr = winnersObj.winningCombos[clickedIndex].relatedTiles;
+
+      for (i=0;i<relTileArr.length; i++){
+
+        var x = $tileArray[relTileArr[i]].id;
+        var str = "#"+x;
+        var $tile = $(str);
+        $tile.toggleClass("green");
+      }
+    }
+
+
+    function hasWon(){
+      //if all tiles in the array contain a class of green then you've won!
+      var className = $($tileArray[0]).attr('class');
+      console.log(className);
+
+      //iterate through the squares in tileArray. if they have class of green then add 1 to the hasWonCounter. outside of the loop function if the hasWonCounter is equal to the length of the tileArray then you've won!
+
+      // $tileArray.each(function (i, value) {
+      //   console.log($($tileArray[i]));
+
+      // });
+
+
+      if(className == "green"){
+        console.log("success");
+      }
+
+    }
+
 });
 
 
-//create a move function - move (clickedTileIndex)  - then 
+//create a move function - move (clickedTileIndex)  -
+//create a hasWon function - if all tiles in array have a class of green then you've won
+
 
 
 
