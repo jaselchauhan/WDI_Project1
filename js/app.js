@@ -4,7 +4,6 @@ $(document).ready(function() {
 
   animateBackground();
   
-
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
   var $reset = $("#reset");
@@ -16,48 +15,31 @@ $(document).ready(function() {
   var turnCounter = 0;
   var player1score = 0;
 
-  //set up the board. 
-
-  var whichGrid = prompt("what size grid would you like - enter 3, 4, 5, 6, 7 or 8");
-
-  if(whichGrid == 3){
-    console.log("grid 3 chosen");
-    removeGrid();
-    create3X3();
-  } else if (whichGrid == 4){
-    console.log("grid 4 chosen");
-    removeGrid();
-    create4X4();
-  }else if (whichGrid == 5){
-    console.log("grid 5 chosen");
-    removeGrid();
-    create5X5();
-  }else if (whichGrid == 6){
-    console.log("grid 6 chosen");
-    removeGrid();
-    create6X6();
-  }else if (whichGrid == 7){
-    console.log("grid 4 chosen");
-    removeGrid();
-    create7X7();
-  }else if (whichGrid == 8){
-    console.log("grid 8 chosen");
-    removeGrid();
-    create8X8();
-  } 
-
-  console.log($tileArray.length);
-  console.log(row_length + " is the row length");
+  setUpBoard();
   
+
+
+
+
+
+
+
+
+
+
   $tileArray.each(function (i, value) { 
     $tileArray = $("li");
 
     $($tileArray[i]).click(function() {
 
-      console.log($tileArray.length);
+      var audio = {};
+      audio["walk"] = new Audio();
+      audio["walk"].src = "sound/click.wav"
+      audio["walk"].addEventListener('load', function () {
+          audio["walk"].play();
+        })
 
       clickedIndex = this.id;
-      console.log(clickedIndex + " is the clicked index");
          
         move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
 
@@ -65,8 +47,6 @@ $(document).ready(function() {
         $(this).fadeIn(300);
 
         hasWon();
-
-        $scoreBoard.html("Clicks so far: "+turnCounter);
     })
   })
 
@@ -74,19 +54,7 @@ $(document).ready(function() {
       resetBoard();
       $scoreBoard.html("click the board to start");
     });
-
-
-    // $($4X4).click(function(){
-
-    //   // removeGrid();
-    //   // createDOMElement();
-    //   // $tileArray = $("li");
-    //   // console.log("Second array: " + $tileArray.length);
-
-    //   create6X6();
-
-    // });  
-
+ 
 /*
 ----------------------------------------------------------------------------------------------------------------
     ____                 __  _                 
@@ -98,11 +66,39 @@ $(document).ready(function() {
 ----------------------------------------------------------------------------------------------------------------
 */  
 
+  function setUpBoard(){
+
+    var whichGrid = prompt("what size grid would you like - enter 3, 4, 5, 6, 7 or 8");
+
+    if(whichGrid == 3){
+      removeGrid();
+      create3X3();
+    } else if (whichGrid == 4){
+      removeGrid();
+      create4X4();
+    }else if (whichGrid == 5){
+      removeGrid();
+      create5X5();
+    }else if (whichGrid == 6){
+      removeGrid();
+      create6X6();
+    }else if (whichGrid == 7){
+      removeGrid();
+      create7X7();
+    }else if (whichGrid == 8){
+      removeGrid();
+      create8X8();
+    } 
+
+  }
 
   function create8X8 () {
     for (i=0;i<64;i++){
       var newSquare = "<li id="+parseInt(i)+"></li>";
       $(".grid").append(newSquare);
+      //why doesn't this work????
+      $("grid").fadeOut(10);
+      $("grid").fadeIn(1000);
     }
     $tileArray = $("li");
     row_length = Math.sqrt($tileArray.length); 
@@ -204,7 +200,10 @@ $(document).ready(function() {
 
     //ambient background changer using a plug in.
     function animateBackground(){
-    $('body').ambience();  
+    $('body').ambience({
+      time:3000, 
+      colors: ['black','darkgrey','black','darkgrey']}
+      );  
     };
     
     function hasWon(){
@@ -215,13 +214,16 @@ $(document).ready(function() {
         }
       });
 
-      $("#remainingTiles").html("Remaining tiles: "+remainingTiles());
+      // $("#remainingTiles").html("Remaining tiles: "+remainingTiles());
+
+      $scoreBoard.html("Clicks so far: "+turnCounter + "     |     Remaining Tiles: " + remainingTiles());
 
       if(greenTileCount == $tileArray.length) {
         alert("YOU HAVE WON");
         player1score = turnCounter;
         resetBoard();
         console.log(player1score + " is the final score for p1");
+        setUpBoard();
         return true;
       }
         greenTileCount = 0;
@@ -236,6 +238,7 @@ $(document).ready(function() {
         turnCounter = 0;
         greenTileCount = 0;
         $("#remainingTiles").html("level one");
+        // $('body').ambience({ time:600, colors: ['beige','blue','pink','olive' ] })
 
       });
     }

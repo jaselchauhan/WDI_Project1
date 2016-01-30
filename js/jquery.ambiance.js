@@ -56,7 +56,7 @@
         cyan: [0, 255, 255],
         darkblue: [0, 0, 139],
         darkcyan: [0, 139, 139],
-        darkgrey: [169, 169, 169],
+        darkgrey: [35, 35, 35],
         darkgreen: [0, 100, 0],
         darkkhaki: [189, 183, 107],
         darkmagenta: [139, 0, 139],
