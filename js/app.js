@@ -3,6 +3,7 @@ $(document).ready(function() {
   console.log("jQuery has loaded");
 
   animateBackground();
+  
 
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
@@ -15,18 +16,48 @@ $(document).ready(function() {
   var turnCounter = 0;
   var player1score = 0;
 
+  //set up the board. 
+
+  var whichGrid = prompt("what size grid would you like - enter 3, 4, 5, 6, 7 or 8");
+
+  if(whichGrid == 3){
+    console.log("grid 3 chosen");
+    removeGrid();
+    create3X3();
+  } else if (whichGrid == 4){
+    console.log("grid 4 chosen");
+    removeGrid();
+    create4X4();
+  }else if (whichGrid == 5){
+    console.log("grid 5 chosen");
+    removeGrid();
+    create5X5();
+  }else if (whichGrid == 6){
+    console.log("grid 6 chosen");
+    removeGrid();
+    create6X6();
+  }else if (whichGrid == 7){
+    console.log("grid 4 chosen");
+    removeGrid();
+    create7X7();
+  }else if (whichGrid == 8){
+    console.log("grid 8 chosen");
+    removeGrid();
+    create8X8();
+  } 
+
   console.log($tileArray.length);
+  console.log(row_length + " is the row length");
   
   $tileArray.each(function (i, value) { 
+    $tileArray = $("li");
 
     $($tileArray[i]).click(function() {
 
-      // $tileArray = $("li");
-      // console.log($tileArray.length);
-
-      // console.log($tileArray);
+      console.log($tileArray.length);
 
       clickedIndex = this.id;
+      console.log(clickedIndex + " is the clicked index");
          
         move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
 
@@ -45,19 +76,16 @@ $(document).ready(function() {
     });
 
 
-    $($4X4).click(function(){
+    // $($4X4).click(function(){
 
-      // fourByfour2();
-      removeGrid();
-      createDOMElement();
-      
+    //   // removeGrid();
+    //   // createDOMElement();
+    //   // $tileArray = $("li");
+    //   // console.log("Second array: " + $tileArray.length);
 
+    //   create6X6();
 
-
-    });  
-
-  
-  //don't toggle them as the squares are still being counted in my $tileArray.length and is therefore fucking up the win logic. Need to instead remove the li elements and re-add them back with the correct ID name.
+    // });  
 
 /*
 ----------------------------------------------------------------------------------------------------------------
@@ -69,9 +97,80 @@ $(document).ready(function() {
                                                
 ----------------------------------------------------------------------------------------------------------------
 */  
-    function createDOMElement() {
 
-      //for a 4X4 grid you'll need 16 squares so do a for loop which creates 16 squares from index 0 to 15.
+
+  function create8X8 () {
+    for (i=0;i<64;i++){
+      var newSquare = "<li id="+parseInt(i)+"></li>";
+      $(".grid").append(newSquare);
+    }
+    $tileArray = $("li");
+    row_length = Math.sqrt($tileArray.length); 
+    $($tileArray).css("height", "11%").css("width", "11%");
+  }
+
+  function create7X7 () {
+    for (i=0;i<49;i++){
+      var newSquare = "<li id="+parseInt(i)+"></li>";
+      $(".grid").append(newSquare);
+    }
+
+    $tileArray = $("li");
+    row_length = Math.sqrt($tileArray.length);
+    $($tileArray).css("height", "12%").css("width", "12%");
+
+  }
+
+  function create6X6 () {
+    for (i=0;i<36;i++){
+      var newSquare = "<li id="+parseInt(i)+"></li>";
+      $(".grid").append(newSquare);
+    }
+
+    $tileArray = $("li");
+    row_length = Math.sqrt($tileArray.length);
+    $($tileArray).css("height", "14%").css("width", "14%");
+
+  }
+
+  function create5X5 () {
+    for (i=0;i<25;i++){
+      var newSquare = "<li id="+parseInt(i)+"></li>";
+      $(".grid").append(newSquare);
+    }
+
+    $tileArray = $("li");
+    row_length = Math.sqrt($tileArray.length);
+    $($tileArray).css("height", "18%").css("width", "18%");
+
+  }
+
+  function create4X4 () {
+    for (i=0;i<16;i++){
+      var newSquare = "<li id="+parseInt(i)+"></li>";
+      $(".grid").append(newSquare);
+    }
+
+    $tileArray = $("li");
+    row_length = Math.sqrt($tileArray.length);
+    $($tileArray).css("height", "23%").css("width", "23%");
+
+  }
+
+
+  function create3X3 () {
+    for (i=0;i<9;i++){
+      var newSquare = "<li id="+parseInt(i)+"></li>";
+      $(".grid").append(newSquare);
+    }
+
+    $tileArray = $("li");
+    row_length = Math.sqrt($tileArray.length);
+    $($tileArray).css("height", "31%").css("width", "31%");
+
+  }
+
+    function createDOMElement() {
       
       for (i=0;i<16;i++){
         var newSquare = "<li id="+parseInt(i)+"></li>";
@@ -79,56 +178,18 @@ $(document).ready(function() {
       }
 
       $tileArray = $("li");
-      console.log($tileArray.length);
+      // console.log($tileArray.length);
 
       $($tileArray).css("height", "22%").css("width", "22%");
 
-      //iterate over newly created grid squares and give them each css height and width properties
-
     }
-
-    //   var tweet = "<li class='stream-item'><div class='tweet'><a href='#''><img src="+ tweetPic+ " alt='User image goes here.'></a><div class='content'><strong class='fullname'>" + tweetName + "</strong><span>&rlm;</span><span>@</span><b>" + tweetScreenName + "</b>&nbsp;&middot;&nbsp;<small class='time'>"+ tweetTime +"</small><p>" + tweetText + "</p></div></div></li>";
-
-    // $stream.prepend(tweet);
 
     function removeGrid() {
-      // var $tileArray = $("li");
-      // console.log($tileArray);
-      // console.log($(this));
-      //iterate through the tileArray and remove all the elements
+ 
       $tileArray.each(function (i, value) { 
-        // console.log($tileArray[i]);
         $tileArray[i].remove();
       });
-
-      //
-
-      // $(".grid").add("li");
-
-      //remove all the current li elements.
-      //then re-add them depending on what size grid to use. so by 4X4 use the 
-
-    }
-
-    function fourByfour(){
-      //hard code first - create another 7 li elements with 
-      //iterate through the li elements and get the length of array
-      // console.log($tileArray.length);
-      // $( "li" ).remove();
-      //change the css properties (height and width) for the li elements
-
-      $($tileArray).css("height", "22%").css("width", "22%");
-      $($tileArray[16]).toggle();
-      $($tileArray[17]).toggle();
-      $($tileArray[18]).toggle();
-      $($tileArray[19]).toggle();
-      $($tileArray[20]).toggle();
-      $($tileArray[21]).toggle();
-      $($tileArray[22]).toggle();
-      $($tileArray[23]).toggle();
-      $($tileArray[24]).toggle();
-
-    }
+    }  
 
   //calculates the remaining tiles to go green and returns the results for use in hasWon function
     function remainingTiles () {
@@ -280,9 +341,6 @@ $(document).ready(function() {
 
 
 //logic for swapping grid sizes - when 3X3 is selected check the row_length global variable to see current and then either add one or two more rows by creating new li dom elements and changing the css height and width of lis. same logic applies for 4X4 and 5X5 etc - just check the exisiting row length and then add/remove the relevant amount of rows.
-
-
-
 
 //use toggle() to toggle the li dom elements for grid selector
 
