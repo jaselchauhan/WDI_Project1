@@ -14,10 +14,17 @@ $(document).ready(function() {
   var greenTileCount = 0;
   var turnCounter = 0;
   var player1score = 0;
+
+  console.log($tileArray.length);
   
   $tileArray.each(function (i, value) { 
 
     $($tileArray[i]).click(function() {
+
+      // $tileArray = $("li");
+      // console.log($tileArray.length);
+
+      // console.log($tileArray);
 
       clickedIndex = this.id;
          
@@ -39,11 +46,18 @@ $(document).ready(function() {
 
 
     $($4X4).click(function(){
-      fourByfour();
-    })  
+
+      // fourByfour2();
+      removeGrid();
+      createDOMElement();
+      
+
+
+
+    });  
 
   
-  //don't toggle them as the
+  //don't toggle them as the squares are still being counted in my $tileArray.length and is therefore fucking up the win logic. Need to instead remove the li elements and re-add them back with the correct ID name.
 
 /*
 ----------------------------------------------------------------------------------------------------------------
@@ -54,12 +68,52 @@ $(document).ready(function() {
 /_/  \__,_/_/ /_/\___/\__/_/\____/_/ /_/____/  
                                                
 ----------------------------------------------------------------------------------------------------------------
-*/
+*/  
+    function createDOMElement() {
+
+      //for a 4X4 grid you'll need 16 squares so do a for loop which creates 16 squares from index 0 to 15.
+      
+      for (i=0;i<16;i++){
+        var newSquare = "<li id="+parseInt(i)+"></li>";
+        $(".grid").append(newSquare);
+      }
+
+      $tileArray = $("li");
+      console.log($tileArray.length);
+
+      $($tileArray).css("height", "22%").css("width", "22%");
+
+      //iterate over newly created grid squares and give them each css height and width properties
+
+    }
+
+    //   var tweet = "<li class='stream-item'><div class='tweet'><a href='#''><img src="+ tweetPic+ " alt='User image goes here.'></a><div class='content'><strong class='fullname'>" + tweetName + "</strong><span>&rlm;</span><span>@</span><b>" + tweetScreenName + "</b>&nbsp;&middot;&nbsp;<small class='time'>"+ tweetTime +"</small><p>" + tweetText + "</p></div></div></li>";
+
+    // $stream.prepend(tweet);
+
+    function removeGrid() {
+      // var $tileArray = $("li");
+      // console.log($tileArray);
+      // console.log($(this));
+      //iterate through the tileArray and remove all the elements
+      $tileArray.each(function (i, value) { 
+        // console.log($tileArray[i]);
+        $tileArray[i].remove();
+      });
+
+      //
+
+      // $(".grid").add("li");
+
+      //remove all the current li elements.
+      //then re-add them depending on what size grid to use. so by 4X4 use the 
+
+    }
 
     function fourByfour(){
       //hard code first - create another 7 li elements with 
       //iterate through the li elements and get the length of array
-      console.log($tileArray.length);
+      // console.log($tileArray.length);
       // $( "li" ).remove();
       //change the css properties (height and width) for the li elements
 
@@ -172,7 +226,6 @@ $(document).ready(function() {
     function move (isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex) {
 
       var currentClick = [];
-      console.log(currentClick);
 
       var indexAsNumber = parseInt(clickedIndex);
       currentClick.push(indexAsNumber);
