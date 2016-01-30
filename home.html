@@ -4,6 +4,7 @@
   <title>Lights Out</title>
   <link rel="stylesheet" type="text/css" href="./css/reset.css">
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="./css/app.css">
   
 
@@ -17,13 +18,16 @@
 
   <div class="container">
 
-    <h1 id="title">Lights Out!</h1><br><br>
+    <h1 id="title">Lights Out</h1><br><br>
 
     <p id="score"> click the board to start</p><br>
+    <p id=""> click the board to start</p><br>
 
     <p id="remainingTiles"> level one</p><br>
 
     <button id="reset">Click to Reset</button><br><br>
+
+    <button id="4X4">4X4</button>
 
     <ul class="grid">
 
@@ -52,6 +56,17 @@
       <li id="22"></li>
       <li id="23"></li>
       <li id="24"></li>
+    <!--   <li id="25"></li>
+      <li id="26"></li>
+      <li id="27"></li>
+      <li id="28"></li>
+      <li id="29"></li>
+      <li id="30"></li>
+      <li id="31"></li>
+      <li id="32"></li>
+      <li id="33"></li>
+      <li id="34"></li>
+      <li id="35"></li> -->
 
     </ul>  
 
@@ -63,6 +78,8 @@
 
 
 <!-- bonuses: random start up sequence with pulsating lights - http://jsoverson.github.io/jquery.pulse.js/
+
+when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
 
 level up functionality - how would the extra size board work - from visual and logic perspective?? - logic done, now consider visual. 
 
@@ -89,6 +106,8 @@ sound retro beep on mouse click
 sounds short click on mouse hover
 
 scrolling baclground image
+
+on win header gets biggers and flies into middle of screen
 
 on win, the tiles fade Out and a z-index hidden div comes up to congratulate user
 

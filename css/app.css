@@ -1,7 +1,9 @@
 body{
   text-align: center;
   margin: 0 auto;
-  font-family: 'Montserrat';
+  /*font-family: 'Montserrat';*/
+  font-family: 'Lato', sans-serif;
+
 }
 
 .container {
@@ -23,7 +25,6 @@ ul {
   margin: 0 auto;
   /*border:5px solid black;*/
   border-radius: 10px;
- 
   /*background-color: rgba(100, 239, 170, 0.5);*/
 }
 
@@ -32,8 +33,8 @@ li {
   color:rgba(100, 239, 170, 0.7);
   border-radius: 7px;
   border:4px solid black;
-  height: 17%;
-  width:17%;
+  height: 18%;
+  width:18%;
   display: inline-block;
   margin:2px;
   cursor: pointer;
@@ -48,7 +49,7 @@ li {
 
 li:hover{
   /*background-color:rgba(175, 119, 234, 0.1);*/
-  border:5px solid black;
+  border:4px solid black;
   box-sizing: border-box;
   box-shadow: 10px 10px 5px rgba(0,0,0,0.5);   }
 

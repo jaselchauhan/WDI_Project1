@@ -5,38 +5,43 @@ $(document).ready(function() {
   animateBackground();
 
   var $tileArray = $("li");
-  var row_length = Math.sqrt($tileArray.length); 
+  var $scoreBoard = $("#score");
+  var $reset = $("#reset");
+  var $4X4 = $("#4X4");
 
+  var row_length = Math.sqrt($tileArray.length); 
   var clickedIndex=0;
   var greenTileCount = 0;
   var turnCounter = 0;
   var player1score = 0;
+  
+  $tileArray.each(function (i, value) { 
 
-  var $scoreBoard = $("#score");
-  var $reset = $("#reset");
+    $($tileArray[i]).click(function() {
 
-    $tileArray.each(function (i, value) { 
-
-      $($tileArray[i]).click(function() {
-
-      clickedIndex = this.id;   
+      clickedIndex = this.id;
          
         move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
 
         $(this).fadeOut(250);     
-        $(this).fadeIn(300); 
+        $(this).fadeIn(300);
 
         hasWon();
 
         $scoreBoard.html("Clicks so far: "+turnCounter);
-      })
     })
+  })
 
     $($reset).click(function() {
       resetBoard();
       $scoreBoard.html("click the board to start");
 
     });
+
+
+    $($4X4).click(function(){
+      fourByfour();
+    })  
 
 
 
@@ -52,12 +57,19 @@ $(document).ready(function() {
                                                
 ----------------------------------------------------------------------------------------------------------------
 */
-
   //create functions to change the grid size on a button click - players can choose from 3X3, 4X4, 5X5 and 6X6
+
+  function fourByfour(){
+    //hard code first - create another 7 li elements with 
+    //iterate through the li elements and get the length of array
+    console.log($tileArray.length);
+    $($tileArray).toggle();
+
+
+  }
 
   //calculates the remaining tiles to go green and returns the results for use in hasWon function
     function remainingTiles () {
-      console.log($tileArray.length - greenTileCount);
        return $tileArray.length - greenTileCount;
     }
 
@@ -72,7 +84,6 @@ $(document).ready(function() {
     $('body').ambience();  
     };
     
-
     function hasWon(){
 
       $tileArray.each(function (i, value) {
@@ -158,55 +169,38 @@ $(document).ready(function() {
       var indexAsNumber = parseInt(clickedIndex);
       currentClick.push(indexAsNumber);
 
-      if(isTopRow(clickedIndex)==true && isLeftColumn(clickedIndex)==true){
-        var rel1 = indexAsNumber + 1;
-        var rel4 = indexAsNumber + row_length;
-        currentClick.push(rel1,rel4)
+      var rel1 = indexAsNumber + 1;
+      var rel2 = indexAsNumber -1;
+      var rel3 = indexAsNumber - row_length;
+      var rel4 = indexAsNumber + row_length;
+
+
+
+      if(isTopRow(clickedIndex) && isLeftColumn(clickedIndex)){
+        currentClick.push(rel1,rel4);
         turnCounter ++;
-      } else if (isTopRow(clickedIndex)==true && isRightColumn(clickedIndex)==true) {
-          var rel2 = indexAsNumber -1;
-          var rel4 = indexAsNumber + row_length;
+      } else if (isTopRow(clickedIndex) && isRightColumn(clickedIndex)) {
           currentClick.push(rel2,rel4);
           turnCounter ++;
-      } else if (isBottomRow(clickedIndex)==true && isLeftColumn(clickedIndex)==true){
-          var rel1 = indexAsNumber + 1;
-          var rel3 = indexAsNumber - row_length;
+      } else if (isBottomRow(clickedIndex) && isLeftColumn(clickedIndex)){
           currentClick.push(rel1,rel3);
           turnCounter ++;
-      } else if (isBottomRow(clickedIndex)==true && isRightColumn(clickedIndex)==true){
-          var rel2 = indexAsNumber -1;
-          var rel3 = indexAsNumber - row_length;
+      } else if (isBottomRow(clickedIndex) && isRightColumn(clickedIndex)){
           currentClick.push(rel2,rel3);
           turnCounter ++;
-      } else if (isTopRow(clickedIndex)==true) {
-          var rel1 = indexAsNumber + 1;
-          var rel2 = indexAsNumber -1;
-          var rel4 = indexAsNumber + row_length;
+      } else if (isTopRow(clickedIndex)) {
           currentClick.push(rel1,rel2,rel4);
           turnCounter ++;
-      } else if (isBottomRow(clickedIndex)==true){
-          var rel1 = indexAsNumber + 1;
-          var rel2 = indexAsNumber -1;
-          var rel3 = indexAsNumber - row_length;
+      } else if (isBottomRow(clickedIndex)){
           currentClick.push(rel1,rel2,rel3);
           turnCounter ++;
-      } else if (isLeftColumn(clickedIndex)==true){
-          var rel1 = indexAsNumber + 1;
-          var rel3 = indexAsNumber - row_length;
-          var rel4 = indexAsNumber + row_length;
+      } else if (isLeftColumn(clickedIndex)){
           currentClick.push(rel1,rel3,rel4);
           turnCounter ++;
-      } else if (isRightColumn(clickedIndex)==true){
-          var rel2 = indexAsNumber -1;
-          var rel3 = indexAsNumber - row_length;
-          var rel4 = indexAsNumber + row_length;
+      } else if (isRightColumn(clickedIndex)){
           currentClick.push(rel2,rel3,rel4);
           turnCounter ++;
       } else {
-          var rel1 = indexAsNumber + 1;
-          var rel2 = indexAsNumber -1;
-          var rel3 = indexAsNumber - row_length;
-          var rel4 = indexAsNumber + row_length;
           currentClick.push(rel1,rel2,rel3,rel4);
           turnCounter ++;
       }
@@ -215,17 +209,20 @@ $(document).ready(function() {
 
             var x = $tileArray[currentClick[i]].id;
             var str = "#"+x;
-            var $tile = $(str);
+            var $tile = $(str);  
             $tile.toggleClass("green");
 
         }
-      // console.log(turnCounter + " turns had by player 1");
     }
 
 });
 
 
+//logic for swapping grid sizes - when 3X3 is selected check the row_length global variable to see current and then either add one or two more rows by creating new li dom elements and changing the css height and width of lis. same logic applies for 4X4 and 5X5 etc - just check the exisiting row length and then add/remove the relevant amount of rows.
 
 
+
+
+//use toggle() to toggle the li dom elements for grid selector
 
 
