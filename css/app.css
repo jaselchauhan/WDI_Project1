@@ -1,7 +1,7 @@
-*{
+body{
   text-align: center;
   margin: 0 auto;
-  font-family: sans-serif;
+  font-family: 'Montserrat';
 }
 
 .container {
@@ -9,11 +9,15 @@
   margin-top: 50px;
 }
 
-h1 {}
+h1 {border-top: 10px solid black;
+  width: 100%;
+  margin-top: -30px;
+  font-size: 36px;
+  }
 
 ul {
-  height:600px;
-  width:600px;
+  height:500px;
+  width:500px;
   list-style: none;
   margin: 0 auto;
   /*border:5px solid black;*/
@@ -27,10 +31,10 @@ li {
   color:rgba(100, 239, 170, 0.7);
   border-radius: 7px;
   border:3px solid black;
-  height: 24%;
-  width:24%;
+  height: 17%;
+  width:17%;
   display: inline-block;
-  margin:1px;
+  margin:2px;
   cursor: pointer;
   font-size: 5em;
   /*the below lines make the text center in middle of li element*/
@@ -38,6 +42,7 @@ li {
   vertical-align: middle;
   line-height: 100%;       /* the same as your div height */
   box-sizing: border-box;
+  background: radial-gradient(rgba(255,255,255,0.5), rgba(214, 4, 4, 0.4));
 }
 
 li:hover{
@@ -50,4 +55,5 @@ li:hover{
 .green {
   background-color: green;
   border: 3px solid black;
+  background: radial-gradient(rgba(255,255,255,0.5), rgba(41, 242, 44, 1);
 }

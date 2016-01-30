@@ -3,10 +3,13 @@
 <head>
   <title>Lights Out</title>
   <link rel="stylesheet" type="text/css" href="./css/reset.css">
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="./css/app.css">
-
+  
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+  <script src="https://cdn.rawgit.com/nnattawat/flip/v1.0.19/dist/jquery.flip.min.js"></script>
+  <script src="./js/jquery.ambiance.js"></script>
   <script src="./js/app.js"></script>
 
 </head>
@@ -38,7 +41,7 @@
       <li id="13"></li>
       <li id="14"></li>
       <li id="15"></li>
-   <!--    <li id="16"></li>
+      <li id="16"></li>
       <li id="17"></li>
       <li id="18"></li>
       <li id="19"></li>
@@ -46,7 +49,7 @@
       <li id="21"></li>
       <li id="22"></li>
       <li id="23"></li>
-      <li id="24"></li> -->
+      <li id="24"></li>
 
     </ul>  
 
@@ -57,15 +60,11 @@
 </html> 
 
 
-<!-- bonuses: random start up sequence with pulsating lights 
-make turn counter - done!
-split into functions - done!
-level up functionality - how woudl the extra size board work - from visual and logic perspective?? - logic done, now consider visual
-add a restart level function - done
-on click functions - animate the counter, the clicked square and the other 
+<!-- bonuses: random start up sequence with pulsating lights - http://jsoverson.github.io/jquery.pulse.js/
 
-delay on mouse click with jquery and then fade out with related Tiles on a slightly faster fadeIn
-puslating lights
+level up functionality - how would the extra size board work - from visual and logic perspective?? - logic done, now consider visual. 
+
+pulsating lights - http://jsoverson.github.io/jquery.pulse.js/
 rotate lights
 make responsive
 
@@ -74,11 +73,29 @@ on click flip the tiles and their relative ones with jquery animations
 
 split the code up into smaller scripts? 
 
+if game won twice (by p1 and p2) then 
+
+jquery flip on clicked tile?
+
+counter for remaining tiles left
+
+sound retro beep on mouse click
+sounds short click on mouse hover
+
+scrolling baclground image
+
+
+//work out how player 2 will play - player 1 goes first and after the first click a timer starts counting down. player 1's turn will end once the timer has run out, at which point their turn score will be logged to compare against player 2's if neither manages to win) . if the timer runs out before the hasWon function has returned true then player ones turn has ended and its onto player two.
+
+//add timer function which starts from the first mouse click. then wokrk out how the game is actually won - ie by least number of moves? or by best time with completed
+// add a reset board button 
 UX:
 
 on load, create a div which covers most of screen explaining instructions and an okay button. On button click fade the div into the background/change the z-index. alternatively instead of okay button have a button which chooses grid size.
 
-ga
+sketch how i want page to look with what interactive features- scoreboards, links to social media - tweet your score, player indicator, animations, z-index hidden divs and how they come onto & off screen.
+
+
 
 
 
