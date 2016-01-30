@@ -28,13 +28,13 @@ $(document).ready(function() {
 
         hasWon();
 
-        $scoreBoard.html(turnCounter);
+        $scoreBoard.html("Clicks so far: "+turnCounter);
       })
     })
 
     $($reset).click(function() {
       resetBoard();
-      $scoreBoard.html(turnCounter);
+      $scoreBoard.html("click the board to start");
 
     });
 
@@ -53,15 +53,26 @@ $(document).ready(function() {
 ----------------------------------------------------------------------------------------------------------------
 */
 
+  //create functions to change the grid size on a button click - players can choose from 3X3, 4X4, 5X5 and 6X6
+
+  //calculates the remaining tiles to go green and returns the results for use in hasWon function
+    function remainingTiles () {
+      console.log($tileArray.length - greenTileCount);
+       return $tileArray.length - greenTileCount;
+    }
+
+    //animates the tiles on click
     function animateTiles(clickedIndex) {
       $(this).fadeOut(70);     
       $(this).fadeIn(200); 
     }
 
+    //ambient background changer using a plug in.
     function animateBackground(){
     $('body').ambience();  
     };
     
+
     function hasWon(){
 
       $tileArray.each(function (i, value) {
@@ -69,6 +80,8 @@ $(document).ready(function() {
           greenTileCount ++;
         }
       });
+
+      $("#remainingTiles").html("Remaining tiles: "+remainingTiles());
 
       if(greenTileCount == $tileArray.length) {
         alert("YOU HAVE WON");
@@ -88,10 +101,12 @@ $(document).ready(function() {
         var removeGreen = $($tileArray[i]).removeClass("green");
         turnCounter = 0;
         greenTileCount = 0;
+        $("#remainingTiles").html("level one");
 
       });
     }
 
+    //checks if clicked square is on the top row of the grid and returns a boolean statement to be passed into move function
     function isTopRow(clickedIndex) {
     
       if(parseInt(clickedIndex) <= row_length-1){
@@ -100,7 +115,7 @@ $(document).ready(function() {
         return false;
       }
     }
-
+    //checks if clicked square is on the bottom row of the grid and returns a boolean statement to be passed into move function
     function isBottomRow(clickedIndex){
       if(parseInt(clickedIndex) > $tileArray.length - (row_length+1)) {
         return true;
@@ -108,7 +123,7 @@ $(document).ready(function() {
         return false;
       }
     }
-
+    //checks if clicked square is in the left of the grid and returns a boolean statement to be passed into move function
     function isLeftColumn(clickedIndex){
 
       if(parseInt(clickedIndex) ==0 ){
@@ -120,7 +135,7 @@ $(document).ready(function() {
         return false;
       }
     }
-
+    //checks if clicked square is in the right of the grid and returns a boolean statement to be passed into move function
     function isRightColumn(clickedIndex){
 
       if(parseInt(clickedIndex) === $tileArray.length -1 ){
@@ -134,7 +149,7 @@ $(document).ready(function() {
       }
     }
 
-
+    //logic for turning the right grids to green 
     function move (isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex) {
 
       var currentClick = [];
@@ -204,7 +219,7 @@ $(document).ready(function() {
             $tile.toggleClass("green");
 
         }
-      console.log(turnCounter + " turns had by player 1");
+      // console.log(turnCounter + " turns had by player 1");
     }
 
 });

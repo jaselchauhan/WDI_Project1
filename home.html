@@ -17,11 +17,13 @@
 
   <div class="container">
 
-    <h1 id="title">Lights Out!</h1>
+    <h1 id="title">Lights Out!</h1><br><br>
 
-    <h3 id="score"> score goes here</h3>
+    <p id="score"> click the board to start</p><br>
 
-    <button id="reset">Click to Reset</button>
+    <p id="remainingTiles"> level one</p><br>
+
+    <button id="reset">Click to Reset</button><br><br>
 
     <ul class="grid">
 
@@ -68,6 +70,8 @@ pulsating lights - http://jsoverson.github.io/jquery.pulse.js/
 rotate lights
 make responsive
 
+logic so that if reset the messages change to something different than loadup messages.
+
 ambient background which gradually changes colors
 on click flip the tiles and their relative ones with jquery animations
 
@@ -79,10 +83,14 @@ jquery flip on clicked tile?
 
 counter for remaining tiles left
 
+animate the remaining tiles and turn numbers by making them bold on each mouse click
+
 sound retro beep on mouse click
 sounds short click on mouse hover
 
 scrolling baclground image
+
+on win, the tiles fade Out and a z-index hidden div comes up to congratulate user
 
 
 //work out how player 2 will play - player 1 goes first and after the first click a timer starts counting down. player 1's turn will end once the timer has run out, at which point their turn score will be logged to compare against player 2's if neither manages to win) . if the timer runs out before the hasWon function has returned true then player ones turn has ended and its onto player two.
