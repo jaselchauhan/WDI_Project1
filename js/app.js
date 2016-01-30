@@ -17,16 +17,6 @@ $(document).ready(function() {
 
   setUpBoard();
   
-
-
-
-
-
-
-
-
-
-
   $tileArray.each(function (i, value) { 
     $tileArray = $("li");
 
@@ -341,10 +331,5 @@ $(document).ready(function() {
     }
 
 });
-
-
-//logic for swapping grid sizes - when 3X3 is selected check the row_length global variable to see current and then either add one or two more rows by creating new li dom elements and changing the css height and width of lis. same logic applies for 4X4 and 5X5 etc - just check the exisiting row length and then add/remove the relevant amount of rows.
-
-//use toggle() to toggle the li dom elements for grid selector
 
 

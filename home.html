@@ -33,7 +33,7 @@
 </html> 
 
 
-<!-- bonuses: random start up sequence with pulsating lights - http://jsoverson.github.io/jquery.pulse.js/
+<!-- contains log of required next steps:
 
 issues - can't restart and size another grid as the main code block isnt being executed 
 
@@ -46,64 +46,39 @@ issues - can't restart and size another grid as the main code block isnt being e
 
 1 - add z index divs which fade in and out - consider UX for when to make divs visible and with what content.
 
-2.
+2. a name! go green? 
 
+3. user experience flow - sketch out how i want page to look like, (consider responsive too) and then 
 
+4. animation:
+  a.when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
+  b) when you win a message cascades across screen and then fades out
+  c) consider other animations based on flow of how user would interact.
 
-a name! go green? 
+5. sound: use a constructor to create audio instance objects and assign to click events
+  b) sound retro beep on mouse click
+  sounds short click on mouse hover
 
-when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
-
-use a constructor to create audio instance objects and assign to click events
-
-level up functionality - how would this work?
-
-pulsating lights - http://jsoverson.github.io/jquery.pulse.js/
-rotate lights
-make responsive
-
-switch color scheme mode
-
-logic so that if reset the messages change to something different than loadup messages.
-
-
-split the code up into smaller scripts? 
-
-if game won twice (by p1 and p2) then 
-
-jquery flip on clicked tile?
-
-counter for remaining tiles left
-
-animate the remaining tiles and turn numbers by making them bold on each mouse click
-
-sound retro beep on mouse click
-sounds short click on mouse hover
-
-scrolling baclground image
-
-on win header gets biggers and flies into middle of screen
-
-on win, the tiles fade Out and a z-index hidden div comes up to congratulate user
-
-
-//work out how player 2 will play - player 1 goes first and after the first click a timer starts counting down. player 1's turn will end once the timer has run out, at which point their turn score will be logged to compare against player 2's if neither manages to win) . if the timer runs out before the hasWon function has returned true then player ones turn has ended and its onto player two.
-
-//add timer function which starts from the first mouse click. then wokrk out how the game is actually won - ie by least number of moves? or by best time with completed
-// add a reset board button 
-UX:
+6. how the game should actually work - ie. do you run out of turns?  if so how many? how does player 2 come into the mix? one idea is to have a turn counter which counts down and displays the clicks left for level. if level completed (all green) before this turn counter is up then level is won and score is logged. then p2's turn. if player 2 also wins then compare their turns left score and decide winner. then move onto the next level (ie. increase grid size). 
 
 on load, create a div which covers most of screen explaining instructions and an okay button. On button click fade the div into the background/change the z-index. alternatively instead of okay button have a button which chooses grid size.
 
 sketch how i want page to look with what interactive features- scoreboards, links to social media - tweet your score, player indicator, animations, z-index hidden divs and how they come onto & off screen.
 
+7. split the code up into smaller scripts? 
 
+8. make responsive
+
+9. styling
+  a) fonts
+  b) color themes: dark background -black grey hues. grid looks much better like this!
+
+easter eggs:
+switch color scheme mode
+jquery flip on clicked tile?
+logic so that if reset the messages change to something different than loadup messages.
+scrolling background image?
+on win header gets biggers and flies into middle of screen
 an ambient color changer based upon the click/tilesRemaining ratio - will change depending on ratio
-
-
-color themes: dark background -black grey hues. grid looks much better like this!
-
-tweak ambient colors in abient.js
-
 
 -->
