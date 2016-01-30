@@ -42,23 +42,8 @@ $(document).ready(function() {
       fourByfour();
     })  
 
-    function fourByfour(){
-      //hard code first - create another 7 li elements with 
-      //iterate through the li elements and get the length of array
-      console.log($tileArray.length);
-      // $( "li" ).remove();
-      $($tileArray[16]).toggle();
-      $($tileArray[17]).toggle();
-      $($tileArray[18]).toggle();
-      $($tileArray[19]).toggle();
-      $($tileArray[20]).toggle();
-      $($tileArray[21]).toggle();
-      $($tileArray[22]).toggle();
-      $($tileArray[23]).toggle();
-      $($tileArray[24]).toggle();
-    }
-
-
+  
+  //don't toggle them as the
 
 /*
 ----------------------------------------------------------------------------------------------------------------
@@ -70,6 +55,26 @@ $(document).ready(function() {
                                                
 ----------------------------------------------------------------------------------------------------------------
 */
+
+    function fourByfour(){
+      //hard code first - create another 7 li elements with 
+      //iterate through the li elements and get the length of array
+      console.log($tileArray.length);
+      // $( "li" ).remove();
+      //change the css properties (height and width) for the li elements
+
+      $($tileArray).css("height", "22%").css("width", "22%");
+      $($tileArray[16]).toggle();
+      $($tileArray[17]).toggle();
+      $($tileArray[18]).toggle();
+      $($tileArray[19]).toggle();
+      $($tileArray[20]).toggle();
+      $($tileArray[21]).toggle();
+      $($tileArray[22]).toggle();
+      $($tileArray[23]).toggle();
+      $($tileArray[24]).toggle();
+
+    }
 
   //calculates the remaining tiles to go green and returns the results for use in hasWon function
     function remainingTiles () {
