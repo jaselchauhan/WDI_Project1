@@ -35,7 +35,6 @@ $(document).ready(function() {
     $($reset).click(function() {
       resetBoard();
       $scoreBoard.html("click the board to start");
-
     });
 
 
@@ -43,7 +42,21 @@ $(document).ready(function() {
       fourByfour();
     })  
 
-
+    function fourByfour(){
+      //hard code first - create another 7 li elements with 
+      //iterate through the li elements and get the length of array
+      console.log($tileArray.length);
+      // $( "li" ).remove();
+      $($tileArray[16]).toggle();
+      $($tileArray[17]).toggle();
+      $($tileArray[18]).toggle();
+      $($tileArray[19]).toggle();
+      $($tileArray[20]).toggle();
+      $($tileArray[21]).toggle();
+      $($tileArray[22]).toggle();
+      $($tileArray[23]).toggle();
+      $($tileArray[24]).toggle();
+    }
 
 
 
@@ -57,16 +70,6 @@ $(document).ready(function() {
                                                
 ----------------------------------------------------------------------------------------------------------------
 */
-  //create functions to change the grid size on a button click - players can choose from 3X3, 4X4, 5X5 and 6X6
-
-  function fourByfour(){
-    //hard code first - create another 7 li elements with 
-    //iterate through the li elements and get the length of array
-    console.log($tileArray.length);
-    $($tileArray).toggle();
-
-
-  }
 
   //calculates the remaining tiles to go green and returns the results for use in hasWon function
     function remainingTiles () {
