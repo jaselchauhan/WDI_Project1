@@ -23,9 +23,6 @@ $(document).ready(function() {
 
   $('.grid').on("click", 'li', function(li) {
     console.log($(this).index());
-  
-
-      //create a function to wrap
       
       // $tileArray.each(function (i, value) { 
         // $tileArray = $("li");
@@ -38,6 +35,8 @@ $(document).ready(function() {
           // audio["walk"].addEventListener('load', function () {
           //     audio["walk"].play();
           //   })
+
+          clickSound();
 
           clickedIndex = this.id;
             
@@ -57,11 +56,6 @@ $(document).ready(function() {
       resetBoard();
       $scoreBoard.html("click the board to start");
     });
- 
-
-
-
-
 
 
 
@@ -76,8 +70,12 @@ $(document).ready(function() {
                                                
 ----------------------------------------------------------------------------------------------------------------
 */  
+  
+  function clickSound(){
 
-
+    var audio = document.getElementById("clickSound");
+    audio.play();
+  }                
 
   function whichPlayer(gameOver) {
     if(gameOver){
