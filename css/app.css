@@ -52,11 +52,13 @@ ul {
   margin-right: 10%;
   padding-top: 5px;
   padding-bottom: 5px;
+  font-size: 18px;
 }
 
 #reset:hover{
   background-color: beige;
   color:black;
+  cursor: pointer;
 }
 
 #instructions {
@@ -118,6 +120,12 @@ li:hover{
 .gridSizeSelector{
   cursor: pointer;
   display:inline-block;
+  font-size:28px;
+}
+
+.gridSizeSelector:hover {
+  background-color: beige;
+  color: rgba(0,0,0,0.7);
 }
 
 #welcome{
@@ -125,12 +133,16 @@ li:hover{
   width:80%;
   margin-left: 10%;
   margin-right: 10%;
-  top:40%;
-  border: 2px solid beige;
+  top:30%;
+/*  border: 2px solid beige;
+  border-right: none;
+  border-left:none;*/
+  padding-top: 50px;
+  padding-bottom:50px; 
 }
 
 #welcomeMessage{
-  font-size: 18px;
+  font-size: 22px;
 }
 
 
@@ -155,5 +167,12 @@ li:hover{
 
   #instructions{
     font-size:14px;
+  }
+
+  .gridSizeSelector{
+    font-size:22px;
+  }
+  #welcome{
+    font-size: 14px;
   }
 }

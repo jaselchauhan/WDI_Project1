@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>   LITESWEEPER</title>
+  <title>   litesweeper</title>
   <link rel="icon" href="fav2.ico">
 
   <link rel="stylesheet" type="text/css" href="./css/reset.css">
@@ -20,7 +20,7 @@
 
     <h1 id="title"><strong>litesweeper</strong></h1><br><br>
 
-    <p id="score"> click the board to start</p><br>
+    <p id="score"> ----------</p><br>
 
     <ul class="grid">
       
@@ -33,11 +33,9 @@
   </audio>
 
   <div id="welcome">
-    <h2 id="welcomeMessage">welcome to litesweeper</h2><br>
-    <p> enter your playername here:</p>
-      <input type="text" name = "playername"><br><br>
+    <h2 id="welcomeMessage">welcome to litesweeper</h2><br><br><br>
+    <p id="afterReset">choose a grid to sweep</p><br>
       
-
     <div class= "gridSizeSelector" id ="threeBythree">3X3</div>
     <div class= "gridSizeSelector" id ="fourByfour">4X4</div>
     <div class= "gridSizeSelector" id ="fiveByfive">5X5</div>
@@ -49,7 +47,9 @@
 
   <div id="reset">click to reset</div><br><br>
 
-  <div id="instructions">the <strong>aim of the game</strong> is to turn the board from green to red by pressing on the lites. There's a twist though - each click will toggle the clicked lite and also its adjacent lites green/red. The board needs to be all green to win before you run out of clicks. Good luck!</div><br><br><br>
+  <div id="instructions">the <strong>aim of the game</strong> is to turn the board from red to green by pressing on the lites. There's a twist though - each click will toggle the clicked lite and also its adjacent lites green/red. The board needs to be all green to win before you run out of clicks. You have 3 lives and can reset the board if you wish but it'll cost you a life. Good luck!</div><br><br><br>
+
+  <div id="player1 score">placeholder for p1 score</div>
 
 </body>
 </html> 
@@ -59,7 +59,10 @@
 
 issues - 
 
-font doesnt work when deployed onto heroku - use montserrat family tree to load secondary and tertiary fonts incase montserrat doesn't work.
+one extra click is required to register you've run out of clicks. ie. the counter says 0 and yet you need to click once more to get the welcome message back
+
+
+
                     __          __                              
    ____  ___  _  __/ /_   _____/ /____  ____  _____             
   / __ \/ _ \| |/_/ __/  / ___/ __/ _ \/ __ \/ ___/  ______     
@@ -67,26 +70,22 @@ font doesnt work when deployed onto heroku - use montserrat family tree to load 
 /_/ /_/\___/_/|_|\__/  /____/\__/\___/ .___/____/               
                                     /_/                         
 
-1 - add z index divs which fade in and out - consider UX for when to make divs visible and with what content.
 
-2 - user flow
+2. game logic - add the score and level completed to an array/obj where it can 
 
-  a) welcome screen is a blank div sitting below title area and contains buttons for selecting 3X3, 4X$, 5X5, 6X6, 7X7, 8X8 etc
-  enters their name in playerName input box and clicks on which grid size to choose from. 
 
-  b) welcome screen fades and the game screen becomes visible, ready for game to begin. Log the player's name onscreen somewhere.
+1 - user flow
+
 
   c) if player runs out of clicks in turn, a live is lost. after 3 lives lost the game is over and the playername, score and level are logged onto a scoreaboard. consider animation. and responsive design here.
 
-  c2) if a player wins then log the clicks remaining and add it to a score variable, then move to the next grid size.
+  c2) if a player wins then log the clicks remaining and add it to a score variable so you can compare against P2. then reset to welcome screeen
 
   d) welcome screen pops up ready for game to begin again.
 
-
-
 add a drop down instruction menu style UI. use slideTOggle
 add dropdown menu for grid sizes
-these dd menues should resize for mobile view
+these dd menus should resize for mobile view
 
 4. animation, sounds and styling:
   a.when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
@@ -95,8 +94,13 @@ these dd menues should resize for mobile view
   sounds short click on mouse hover.
   sound for win.
   sound for reset.
+  sound for lose
+  sound on start
+  d)monserrat font chain for backup fonts.
 
   b) color themes for ambient background: dark background -black grey hues. grid looks much better like this! further note. add a couple of bright colors in there which wont clash with red or green.
+
+
 
 easter eggs:
 

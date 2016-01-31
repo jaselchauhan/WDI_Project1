@@ -4,6 +4,7 @@ $(document).ready(function() {
 
   animateBackground();
   
+  //declare all jQuery DOM variables here.
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
   var $reset = $("#reset");
@@ -14,97 +15,102 @@ $(document).ready(function() {
   var $selectSix = $("#sixBysix");
   var $selectSeven = $("#sevenByseven");
   var $selectEight = $("#eightByeight");
+  var $p1score = $("#afterReset");
+  var $gridSizeSelector = $(".gridSizeSelector");
 
-
+  //declare other variables here
   var row_length = Math.sqrt($tileArray.length); 
   var clickedIndex=0;
   var greenTileCount = 0;
   var turnCounter = 0;
   var player1score = 0;
   var startingClicks = 0;
-  var startingClicksIndex = [8,15,30,50,75,100];
+  var startingClicksIndex = [8,15,35,50,75,100];
   var animateRelTileArray = [];
+  var livesCounter = 3;
+  var whichPlayer = 0;
 
-  // setUpBoard();
-
+ //main code block. runs on each lite click.
   $('.grid').on("click", 'li', function(li) {
-    // console.log($(this).index());
       
           clickSound();
 
           clickedIndex = this.id;
+
+          console.log(whichPlayer);
             
           if(!gameOver()){ 
               move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
               $(this).fadeOut(100);     
               $(this).fadeIn(200);
               hasWon();
+          } else if (!!gameOver) {
+            console.log("testing condition for if game over is true");
           }
+
+          //should there be an else statement here for if game over is true??
   });
+
+  // click event listeners below
 
     //on reset click event run resetBoard function and update the text on screen.
     $($reset).click(function() {
       resetBoard();
-      $scoreBoard.html("click the board to start");
+      $scoreBoard.html("----------");
+      livesCounter -=1;
+      console.log("you have " + livesCounter + " lives remaining..");
+      $gridSizeSelector.show();
+      $('#welcome').delay(1000).fadeIn();
+      // $('#welcome').delay(1000).fadeOut();
     });
 
-
+    //sets board up as 3by3
     $($selectThree).click(function() {
-      resetBoard();
-      $scoreBoard.html("click the board to start");
-      removeGrid();
+      prepBoard();
       create3X3();
       startingClicks = startingClicksIndex[0];
-      $('#welcome').delay(500).fadeOut();
+
     });
 
-
+    //sets board up as 4X4
     $($selectFour).click(function() {
-      resetBoard();
-      $scoreBoard.html("click the board to start");
-      removeGrid();
+      prepBoard();
       create4X4();
       startingClicks = startingClicksIndex[1];
-      $('#welcome').delay(500).fadeOut();
+
     });
 
+    //sets board up as 5X5
     $($selectFive).click(function() {
-      resetBoard();
-      $scoreBoard.html("click the board to start");
-      removeGrid();
+      prepBoard();
       create5X5();
       startingClicks = startingClicksIndex[2];
-      $('#welcome').delay(500).fadeOut();
+
     });
 
+    //sets board up as 6X6
     $($selectSix).click(function() {
-      resetBoard();
-      $scoreBoard.html("click the board to start");
-      removeGrid();
+      prepBoard();
       create6X6();
       startingClicks = startingClicksIndex[3];
-      $('#welcome').delay(500).fadeOut();
+
     });
 
+    //sets board up as 7X7
     $($selectSeven).click(function() {
-      resetBoard();
-      $scoreBoard.html("click the board to start");
-      removeGrid();
+      prepBoard();
       create7X7();
       startingClicks = startingClicksIndex[4];
-      $('#welcome').delay(500).fadeOut();
+
     });
-    
+
+    //sets board up as 8X8
     $($selectEight).click(function() {
-      resetBoard();
-      $scoreBoard.html("click the board to start");
-      removeGrid();
+      prepBoard();
       create8X8();
       startingClicks = startingClicksIndex[5];
-      $('#welcome').delay(500).fadeOut();
+
     });
-
-
 
 
 /*
@@ -117,7 +123,14 @@ $(document).ready(function() {
                                                
 ----------------------------------------------------------------------------------------------------------------
 */  
-  
+
+  function prepBoard(){
+    resetBoard();
+    $scoreBoard.html("----------");
+    removeGrid();
+    $('#welcome').delay(400).fadeOut();
+  };
+
   function clickSound(){
 
     var audio = document.getElementById("clickSound");
@@ -133,45 +146,30 @@ $(document).ready(function() {
   }
 
   function gameOver(){
-    if(startingClicks - turnCounter >0 ) {
+
+    if(livesCounter<=0){
+      alert("you have run out of lives, please try again");
+      // $("#title").html("GAME. OVER. " + player1score + " is the final score for p1");
+      $('#welcome').delay(400).fadeIn();
+      resetBoard();
+      livesCounter =3;
+      return true;
+    }
+
+    if(startingClicks - turnCounter > 0 ) {
       return false;
     } else {
-      alert("You've run out of turns, it's player 2's turn!");
+      // $(".grid").fadeOut(20);
+      // $("#title").html("GAME. OVER. " + player1score + " is the final score for p1");
+      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
+      $('#welcome').delay(400).fadeIn();
+      $('#welcome').delay(4000).fadeOut();
+
+      // $(".grid").fadeIn(200);
+      livesCounter-=1;
       resetBoard();
       return true;
     }
-  }
-
-  function setUpBoard(){
-
-    var whichGrid = prompt("what size grid would you like - enter 3, 4, 5, 6, 7 or 8");
-
-    if(whichGrid == 3){
-      removeGrid();
-      create3X3();
-      startingClicks = startingClicksIndex[0];
-    } else if (whichGrid == 4){
-      removeGrid();
-      create4X4();
-      startingClicks = startingClicksIndex[1];
-    }else if (whichGrid == 5){
-      removeGrid();
-      create5X5();
-      startingClicks = startingClicksIndex[2];
-    }else if (whichGrid == 6){
-      removeGrid();
-      create6X6();
-      startingClicks = startingClicksIndex[3];
-    }else if (whichGrid == 7){
-      removeGrid();
-      create7X7();
-      startingClicks = startingClicksIndex[4];
-    }else if (whichGrid == 8){
-      removeGrid();
-      create8X8();
-      startingClicks = startingClicksIndex[5];
-    } 
-
   }
 
   function create8X8 () {
@@ -272,6 +270,14 @@ $(document).ready(function() {
       colors: ['black','darkgrey','darkblue', 'cyan','black','darkgrey','darkblue','cyan']}
       );  
     };
+
+    function whoseTurn(whichPlayer){
+      if(whichPlayer%2==0){
+        return "p2";
+      } else {
+        return "p1";
+      }
+    }
     
     function hasWon(){
 
@@ -281,16 +287,37 @@ $(document).ready(function() {
         }
       });
 
-      $scoreBoard.html("Clicks left: "+ (startingClicks- turnCounter) + "     |     Remaining Tiles: " + remainingTiles());
+      $scoreBoard.html("clicks left: "+ (startingClicks- turnCounter) + "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
 
       if(greenTileCount == $tileArray.length) {
-        alert("YOU HAVE WON");
-        $(".grid").fadeOut(400);
-        $(".grid").fadeIn(1000);
+        // $(".grid").fadeOut(200);
+        // $(".grid").toggleClass("green");
+        // $(".grid").fadeIn(200);
+        // $(".grid").fadeOut(200);
+        // $(".grid").toggleClass("green");
+        // $(".grid").fadeIn(200);
+        // $(".grid").fadeOut(20);
+        $('#welcome').delay(400).fadeIn();
+        $(".grid").fadeOut(2000);
+        $(".grid").fadeIn(20);
+        // $(".grid").fadeIn(1000);
+        // $(".grid").fadeOut(450);
+        // $(".grid").fadeIn(800);
+        // $(".grid").fadeOut(250);
+        // $(".grid").fadeIn(600);
         player1score = turnCounter;
         resetBoard();
-        console.log(player1score + " is the final score for p1");
-        setUpBoard();
+        // console.log(player1score + " is the final score for p1");
+        // $("p").hide();
+        $gridSizeSelector.hide();
+        $('#welcome').delay(4000).fadeOut();
+        $p1score.html("you've won! " + player1score + " is the final score for " + whoseTurn() + "...next player's go");
+
+        $("#title").html(whoseTurn() + " scored " + player1score + "!...next player's go");
+        whichPlayer +=1;
+        $("#title").delay(4000).html("litesweeper");
+
+        // setUpBoard();
         return true;
       }
         greenTileCount = 0;
@@ -304,7 +331,8 @@ $(document).ready(function() {
         var removeGreen = $($tileArray[i]).removeClass("green");
         turnCounter = 0;
         greenTileCount = 0;
-        $("#remainingTiles").html("level one");
+        $("#title").html("litesweeper");
+        // $("#remainingTiles").html("level one");
 
       });
     }
@@ -412,4 +440,10 @@ $(document).ready(function() {
 
 });
 
+
+
+//     $('#welcome')
+//         .css('background-color', '')
+// // background-color: rgba(41, 242, 44, 0.6)
+//         .css('background-color', 'rgba(41,242,44,0.6)');
 
