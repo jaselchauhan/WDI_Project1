@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   console.log("jQuery has loaded");
 
-  animateBackground();
+  // animateBackground();
   
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
@@ -22,20 +22,8 @@ $(document).ready(function() {
 
 
   $('.grid').on("click", 'li', function(li) {
-    console.log($(this).index());
+    // console.log($(this).index());
       
-      // $tileArray.each(function (i, value) { 
-        // $tileArray = $("li");
-
-        // $($tileArray[i]).click(function() {
-
-          // var audio = {};
-          // audio["walk"] = new Audio();
-          // audio["walk"].src = "http://soundbible.com/mp3/Audience_Applause-Matthiew11-1206899159.mp3";
-          // audio["walk"].addEventListener('load', function () {
-          //     audio["walk"].play();
-          //   })
-
           clickSound();
 
           clickedIndex = this.id;
@@ -46,9 +34,6 @@ $(document).ready(function() {
               $(this).fadeIn(200);
               hasWon();
           }
-        // })
-      // })
-
   });
 
     //on reset click event run resetBoard function and update the text on screen.
