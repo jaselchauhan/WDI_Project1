@@ -19,29 +19,38 @@ $(document).ready(function() {
   var animateRelTileArray = [];
 
   setUpBoard();
+
+
+  $('.grid').on("click", 'li', function(li) {
+    console.log($(this).index());
   
-  $tileArray.each(function (i, value) { 
-    $tileArray = $("li");
 
-    $($tileArray[i]).click(function() {
+      //create a function to wrap
+      
+      // $tileArray.each(function (i, value) { 
+        // $tileArray = $("li");
 
-      // var audio = {};
-      // audio["walk"] = new Audio();
-      // audio["walk"].src = "http://soundbible.com/mp3/Audience_Applause-Matthiew11-1206899159.mp3";
-      // audio["walk"].addEventListener('load', function () {
-      //     audio["walk"].play();
-      //   })
+        // $($tileArray[i]).click(function() {
 
-      clickedIndex = this.id;
-        
-      if(gameOver()){ 
-          move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
-          $(this).fadeOut(100);     
-          $(this).fadeIn(200);
-          hasWon();
-      }
-    })
-  })
+          // var audio = {};
+          // audio["walk"] = new Audio();
+          // audio["walk"].src = "http://soundbible.com/mp3/Audience_Applause-Matthiew11-1206899159.mp3";
+          // audio["walk"].addEventListener('load', function () {
+          //     audio["walk"].play();
+          //   })
+
+          clickedIndex = this.id;
+            
+          if(!gameOver()){ 
+              move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
+              $(this).fadeOut(100);     
+              $(this).fadeIn(200);
+              hasWon();
+          }
+        // })
+      // })
+
+  });
 
     //on reset click event run resetBoard function and update the text on screen.
     $($reset).click(function() {
@@ -80,11 +89,11 @@ $(document).ready(function() {
 
   function gameOver(){
     if(startingClicks - turnCounter >0 ) {
-      return true;
+      return false;
     } else {
       alert("You've run out of turns, it's player 2's turn!");
       resetBoard();
-      return false;
+      return true;
     }
   }
 
