@@ -24,7 +24,7 @@ $(document).ready(function() {
 
       var audio = {};
       audio["walk"] = new Audio();
-      audio["walk"].src = "sound/click.wav"
+      audio["walk"].src = "http://soundbible.com/mp3/Audience_Applause-Matthiew11-1206899159.mp3";
       audio["walk"].addEventListener('load', function () {
           audio["walk"].play();
         })
@@ -92,7 +92,7 @@ $(document).ready(function() {
     }
     $tileArray = $("li");
     row_length = Math.sqrt($tileArray.length); 
-    $($tileArray).css("height", "11%").css("width", "11%");
+    $($tileArray).css("height", "10%").css("width", "10%");
   }
 
   function create7X7 () {
@@ -192,7 +192,7 @@ $(document).ready(function() {
     function animateBackground(){
     $('body').ambience({
       time:3000, 
-      colors: ['black','darkgrey','black','darkgrey']}
+      colors: ['black','darkgrey','darkblue', 'cyan','black','darkgrey','darkblue','cyan']}
       );  
     };
     
