@@ -17,7 +17,7 @@
 
   <div class="container">
 
-    <h1 id="title">LITESWEEPER</h1><br><br>
+    <h1 id="title"><strong>litesweeper</strong></h1><br><br>
 
     <p id="score"> click the board to start</p><br>
 
@@ -27,9 +27,9 @@
 
   </div>
 
-  <div id="reset">Click to Reset</div><br><br>
+  <div id="reset">click to Reset</div><br><br>
 
-  <div id="test">test div for z-index</div>
+  <div id="instructions">the <strong>aim of the game</strong> is to turn the board from green to red by pressing on the lites. There's a twist though - each click will toggles the clicked lite and also its adjacent lites green/red. The board needs to be all green to win before you run out of clicks. Good luck!</div>
 
 </body>
 </html> 
@@ -38,6 +38,8 @@
 <!-- contains log of required next steps:
 
 issues - can't restart and size another grid as the main code block isnt being executed  - would it work if i wrap main code in function and then call the function everytime a reset/board size change call was initiated?
+
+font doesnt work when deployed onto heroku
                     __          __                              
    ____  ___  _  __/ /_   _____/ /____  ____  _____             
   / __ \/ _ \| |/_/ __/  / ___/ __/ _ \/ __ \/ ___/  ______     
@@ -54,6 +56,7 @@ sketch how i want page to look with what interactive features- scoreboards, link
 
 add a drop down instruction menu style UI. use slideTOggle
 add dropdown menu for grid sizes
+these dd menues should resize for mobile view
 
 4. animation:
   a.when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
@@ -69,11 +72,7 @@ add dropdown menu for grid sizes
   b) add add a scoreboard div which contains p tags for player 1 and player 2 scores. update these with 
   c) add a banner which displays which players turn it is - ie. player 1
 
-
-
-7. split the code up into smaller scripts? 
-
-8. make responsive - have tested on chrome dev tools and works on an ipad. haven't considered media queries yet - on smaller screen shrink the ul container height and width and also the border design font size.
+d) HOW ABOUT A MULTIPLAYER (as many as you want as you enter name each time.) GAME WHERE YOU ENTER YOUR NAME EACH TURN AND YOUR SCORE IS APPENDED TO THE LEADERBOARD?!
 
 9. styling
   a) fonts.
