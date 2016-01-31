@@ -2,12 +2,19 @@ $(document).ready(function() {
 
   console.log("jQuery has loaded");
 
-  // animateBackground();
+  animateBackground();
   
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
   var $reset = $("#reset");
   var $4X4 = $("#4X4");
+  var $selectThree = $("#threeBythree");
+  var $selectFour = $("#fourByfour");
+  var $selectFive = $("#fiveByfive");
+  var $selectSix = $("#sixBysix");
+  var $selectSeven = $("#sevenByseven");
+  var $selectEight = $("#eightByeight");
+
 
   var row_length = Math.sqrt($tileArray.length); 
   var clickedIndex=0;
@@ -18,8 +25,7 @@ $(document).ready(function() {
   var startingClicksIndex = [8,15,30,50,75,100];
   var animateRelTileArray = [];
 
-  setUpBoard();
-
+  // setUpBoard();
 
   $('.grid').on("click", 'li', function(li) {
     // console.log($(this).index());
@@ -40,6 +46,62 @@ $(document).ready(function() {
     $($reset).click(function() {
       resetBoard();
       $scoreBoard.html("click the board to start");
+    });
+
+
+    $($selectThree).click(function() {
+      resetBoard();
+      $scoreBoard.html("click the board to start");
+      removeGrid();
+      create3X3();
+      startingClicks = startingClicksIndex[0];
+      $('#welcome').delay(500).fadeOut();
+    });
+
+
+    $($selectFour).click(function() {
+      resetBoard();
+      $scoreBoard.html("click the board to start");
+      removeGrid();
+      create4X4();
+      startingClicks = startingClicksIndex[1];
+      $('#welcome').delay(500).fadeOut();
+    });
+
+    $($selectFive).click(function() {
+      resetBoard();
+      $scoreBoard.html("click the board to start");
+      removeGrid();
+      create5X5();
+      startingClicks = startingClicksIndex[2];
+      $('#welcome').delay(500).fadeOut();
+    });
+
+    $($selectSix).click(function() {
+      resetBoard();
+      $scoreBoard.html("click the board to start");
+      removeGrid();
+      create6X6();
+      startingClicks = startingClicksIndex[3];
+      $('#welcome').delay(500).fadeOut();
+    });
+
+    $($selectSeven).click(function() {
+      resetBoard();
+      $scoreBoard.html("click the board to start");
+      removeGrid();
+      create7X7();
+      startingClicks = startingClicksIndex[4];
+      $('#welcome').delay(500).fadeOut();
+    });
+    
+    $($selectEight).click(function() {
+      resetBoard();
+      $scoreBoard.html("click the board to start");
+      removeGrid();
+      create8X8();
+      startingClicks = startingClicksIndex[5];
+      $('#welcome').delay(500).fadeOut();
     });
 
 
@@ -223,6 +285,8 @@ $(document).ready(function() {
 
       if(greenTileCount == $tileArray.length) {
         alert("YOU HAVE WON");
+        $(".grid").fadeOut(400);
+        $(".grid").fadeIn(1000);
         player1score = turnCounter;
         resetBoard();
         console.log(player1score + " is the final score for p1");
@@ -241,7 +305,6 @@ $(document).ready(function() {
         turnCounter = 0;
         greenTileCount = 0;
         $("#remainingTiles").html("level one");
-        // $('body').ambience({ time:600, colors: ['beige','blue','pink','olive' ] })
 
       });
     }

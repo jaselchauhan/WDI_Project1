@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LITESWEEPER</title>
+  <title>   LITESWEEPER</title>
+  <link rel="icon" href="fav2.ico">
+
   <link rel="stylesheet" type="text/css" href="./css/reset.css">
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="./css/app.css">
   
 
@@ -30,9 +32,24 @@
     Your browser does not suppor the HTML 5 audio tag
   </audio>
 
+  <div id="welcome">
+    <h2 id="welcomeMessage">welcome to litesweeper</h2><br>
+    <p> enter your playername here:</p>
+      <input type="text" name = "playername"><br><br>
+      
+
+    <div class= "gridSizeSelector" id ="threeBythree">3X3</div>
+    <div class= "gridSizeSelector" id ="fourByfour">4X4</div>
+    <div class= "gridSizeSelector" id ="fiveByfive">5X5</div>
+    <div class= "gridSizeSelector" id ="sixBysix">6X6</div>
+    <div class= "gridSizeSelector" id ="sevenByseven">7X7</div>
+    <div class= "gridSizeSelector" id ="eightByeight">8X8</div>
+
+  </div>
+
   <div id="reset">click to reset</div><br><br>
 
-  <div id="instructions">the <strong>aim of the game</strong> is to turn the board from green to red by pressing on the lites. There's a twist though - each click will toggle the clicked lite and also its adjacent lites green/red. The board needs to be all green to win before you run out of clicks. Good luck!</div>
+  <div id="instructions">the <strong>aim of the game</strong> is to turn the board from green to red by pressing on the lites. There's a twist though - each click will toggle the clicked lite and also its adjacent lites green/red. The board needs to be all green to win before you run out of clicks. Good luck!</div><br><br><br>
 
 </body>
 </html> 
@@ -42,7 +59,7 @@
 
 issues - 
 
-font doesnt work when deployed onto heroku
+font doesnt work when deployed onto heroku - use montserrat family tree to load secondary and tertiary fonts incase montserrat doesn't work.
                     __          __                              
    ____  ___  _  __/ /_   _____/ /____  ____  _____             
   / __ \/ _ \| |/_/ __/  / ___/ __/ _ \/ __ \/ ___/  ______     
@@ -52,35 +69,34 @@ font doesnt work when deployed onto heroku
 
 1 - add z index divs which fade in and out - consider UX for when to make divs visible and with what content.
 
-3. user experience flow - sketch out how i want page to look like, (consider responsive too)
-on load, create a div which covers most of screen explaining instructions and an okay button. On button click fade the div into the background/change the z-index. alternatively instead of okay button have a button which chooses grid size.
+2 - user flow
 
-sketch how i want page to look with what interactive features- scoreboards, links to social media - tweet your score, player indicator, animations, z-index hidden divs and how they come onto & off screen.
+  a) welcome screen is a blank div sitting below title area and contains buttons for selecting 3X3, 4X$, 5X5, 6X6, 7X7, 8X8 etc
+  enters their name in playerName input box and clicks on which grid size to choose from. 
+
+  b) welcome screen fades and the game screen becomes visible, ready for game to begin. Log the player's name onscreen somewhere.
+
+  c) if player runs out of clicks in turn, a live is lost. after 3 lives lost the game is over and the playername, score and level are logged onto a scoreaboard. consider animation. and responsive design here.
+
+  c2) if a player wins then log the clicks remaining and add it to a score variable, then move to the next grid size.
+
+  d) welcome screen pops up ready for game to begin again.
+
+
 
 add a drop down instruction menu style UI. use slideTOggle
 add dropdown menu for grid sizes
 these dd menues should resize for mobile view
 
-4. animation:
+4. animation, sounds and styling:
   a.when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
   b) when you win a message cascades across screen and then fades out
   c) consider other animations based on flow of how user would interact.
+  sounds short click on mouse hover.
+  sound for win.
+  sound for reset.
 
-5. sound: use a constructor to create audio instance objects and assign to click events
-  b) sound retro beep on mouse click
-  sounds short click on mouse hover
-
-6. how the game should actually work - ie. do you run out of turns?  if so how many? how does player 2 come into the mix? one idea is to have a turn counter which counts down and displays the clicks left for level. if level completed (all green) before this turn counter is up then level is won and score is logged. then p2's turn. if player 2 also wins then compare their turns left score and decide winner. then move onto the next level (ie. increase grid size). 
-  a) add turns remaining feature. DONE
-  b) add add a scoreboard div which contains p tags for player 1 and player 2 scores. update these with 
-  c) add a banner which displays which players turn it is - ie. player 1
-
-d) HOW ABOUT A MULTIPLAYER (as many as you want as you enter name each time.) GAME WHERE YOU ENTER YOUR NAME EACH TURN AND YOUR SCORE IS APPENDED TO THE LEADERBOARD?!
-
-9. styling
-  a) fonts.
-  b) color themes: dark background -black grey hues. grid looks much better like this! further note. add a couple of bright colors in there which wont clash with red or green.
-  c) improve styling of the lights
+  b) color themes for ambient background: dark background -black grey hues. grid looks much better like this! further note. add a couple of bright colors in there which wont clash with red or green.
 
 easter eggs:
 
