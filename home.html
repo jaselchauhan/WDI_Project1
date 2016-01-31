@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lights Out</title>
+  <title>LITESWEEPER</title>
   <link rel="stylesheet" type="text/css" href="./css/reset.css">
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
@@ -29,14 +29,15 @@
 
   <div id="reset">Click to Reset</div><br><br>
 
+  <div id="test">test div for z-index</div>
+
 </body>
 </html> 
 
 
 <!-- contains log of required next steps:
 
-issues - can't restart and size another grid as the main code block isnt being executed 
-
+issues - can't restart and size another grid as the main code block isnt being executed  - would it work if i wrap main code in function and then call the function everytime a reset/board size change call was initiated?
                     __          __                              
    ____  ___  _  __/ /_   _____/ /____  ____  _____             
   / __ \/ _ \| |/_/ __/  / ___/ __/ _ \/ __ \/ ___/  ______     
@@ -46,9 +47,13 @@ issues - can't restart and size another grid as the main code block isnt being e
 
 1 - add z index divs which fade in and out - consider UX for when to make divs visible and with what content.
 
-2. a name! litesweeper?
+3. user experience flow - sketch out how i want page to look like, (consider responsive too)
+on load, create a div which covers most of screen explaining instructions and an okay button. On button click fade the div into the background/change the z-index. alternatively instead of okay button have a button which chooses grid size.
 
-3. user experience flow - sketch out how i want page to look like, (consider responsive too) and then 
+sketch how i want page to look with what interactive features- scoreboards, links to social media - tweet your score, player indicator, animations, z-index hidden divs and how they come onto & off screen.
+
+add a drop down instruction menu style UI. use slideTOggle
+add dropdown menu for grid sizes
 
 4. animation:
   a.when hasWon is true (ie when you;ve won) make all the squares in the grid flash.
@@ -60,25 +65,28 @@ issues - can't restart and size another grid as the main code block isnt being e
   sounds short click on mouse hover
 
 6. how the game should actually work - ie. do you run out of turns?  if so how many? how does player 2 come into the mix? one idea is to have a turn counter which counts down and displays the clicks left for level. if level completed (all green) before this turn counter is up then level is won and score is logged. then p2's turn. if player 2 also wins then compare their turns left score and decide winner. then move onto the next level (ie. increase grid size). 
+  a) add turns remaining feature. DONE
+  b) add add a scoreboard div which contains p tags for player 1 and player 2 scores. update these with 
+  c) add a banner which displays which players turn it is - ie. player 1
 
-on load, create a div which covers most of screen explaining instructions and an okay button. On button click fade the div into the background/change the z-index. alternatively instead of okay button have a button which chooses grid size.
 
-sketch how i want page to look with what interactive features- scoreboards, links to social media - tweet your score, player indicator, animations, z-index hidden divs and how they come onto & off screen.
 
 7. split the code up into smaller scripts? 
 
 8. make responsive - have tested on chrome dev tools and works on an ipad. haven't considered media queries yet - on smaller screen shrink the ul container height and width and also the border design font size.
 
 9. styling
-  a) fonts
-  b) color themes: dark background -black grey hues. grid looks much better like this! further note. add a couple of bright colors in there which wont clash with red or green
+  a) fonts.
+  b) color themes: dark background -black grey hues. grid looks much better like this! further note. add a couple of bright colors in there which wont clash with red or green.
+  c) improve styling of the lights
 
 easter eggs:
-switch color scheme mode
-make button presses look better
+
+switch color scheme mode.
+make button presses look better.
 logic so that if reset the messages change to something different than loadup messages.
 scrolling background image?
-on win header gets biggers and flies into middle of screen
+on win header gets biggers and flies into middle of screen.
 an ambient color changer based upon the click/tilesRemaining ratio - will change depending on ratio
 
 -->

@@ -14,10 +14,10 @@ body{
 }
 
 h1 {border-top: 7px solid beige;
-  width: 90%;
+  width: 80%;
   margin-top: -30px;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
   padding-top: 10px;
   font-size: 48px;
   
@@ -25,9 +25,9 @@ h1 {border-top: 7px solid beige;
 
 #score{
   border-top: 2px solid beige;
-  width:90%;
-  margin-left: 5%;
-  margin-right: 5%;
+  width:80%;
+  margin-left:10%;
+  margin-right:10%;
   margin-top: -15px;
   margin-bottom: 30px;
   padding-top: 25px;
@@ -47,9 +47,9 @@ ul {
   border-right: none;
   border-left: none;
   border-bottom: 1px solid beige;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -60,7 +60,7 @@ ul {
 }
 
 li {
-  background-color: rgba(214, 4, 4, 0.7);
+  background-color: rgba(214, 4, 4, 0.5);
   color:rgba(100, 239, 170, 0.7);
   border-radius: 0px;
   /*border:1px solid black;*/
@@ -75,21 +75,40 @@ li {
   vertical-align: middle;
   line-height: 100%;       /* the same as your div height */
   box-sizing: border-box;
-  background: radial-gradient(rgba(255,255,255,0.5), rgba(214, 4, 4, 0.4));
+  /*background: radial-gradient(rgba(255,255,255,0.5), rgba(214, 4, 4, 0.5));*/
 
 }
 
 li:hover{
 /*  background-color:rgba(230, 230, 230, 0.6);*/
-  /*border: 2px solid rgba(230,230,230,0.5);*/
-  border: 3px solid rgba(0,0,0,0.5);
+  border: 3px solid rgba(255,239,213,0.7);
+  /*border: 3px solid rgba(0,0,0,0.5);*/
   box-sizing: border-box;
   border-radius: 3px;
   box-shadow: 5px 5px 10px rgba(220,220,220,0.5);   }
 
 
 .green {
-  background-color: green;
+  background-color: rgba(41, 242, 44, 0.7);
   /*border: 1px solid black;*/
-  background: radial-gradient(rgba(255,255,255,0.7), rgba(41, 242, 44, 1);
+  /*background: radial-gradient(rgba(255,255,255,0.7), rgba(41, 242, 44, 1);*/
+}
+
+/*#test{
+  border 4px dashed beige;
+  height:  700px;
+  width: 700px;
+  
+  z-index: 100;
+}*/
+
+@media only screen and (max-width: 640px) {
+  
+  #score {
+    font-size: 10px;
+  }
+  ul {
+    height:400px;
+    width: 400px;
+  }
 }

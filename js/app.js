@@ -14,6 +14,9 @@ $(document).ready(function() {
   var greenTileCount = 0;
   var turnCounter = 0;
   var player1score = 0;
+  var startingClicks = 0;
+  var startingClicksIndex = [8,15,30,50,75,100];
+  var animateRelTileArray = [];
 
   setUpBoard();
   
@@ -22,29 +25,38 @@ $(document).ready(function() {
 
     $($tileArray[i]).click(function() {
 
-      var audio = {};
-      audio["walk"] = new Audio();
-      audio["walk"].src = "http://soundbible.com/mp3/Audience_Applause-Matthiew11-1206899159.mp3";
-      audio["walk"].addEventListener('load', function () {
-          audio["walk"].play();
-        })
+      // var audio = {};
+      // audio["walk"] = new Audio();
+      // audio["walk"].src = "http://soundbible.com/mp3/Audience_Applause-Matthiew11-1206899159.mp3";
+      // audio["walk"].addEventListener('load', function () {
+      //     audio["walk"].play();
+      //   })
 
       clickedIndex = this.id;
-         
-        move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
-
-        $(this).fadeOut(250);     
-        $(this).fadeIn(300);
-
-        hasWon();
+        
+      if(gameOver()){ 
+          move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
+          $(this).fadeOut(100);     
+          $(this).fadeIn(200);
+          hasWon();
+      }
     })
   })
 
+    //on reset click event run resetBoard function and update the text on screen.
     $($reset).click(function() {
       resetBoard();
       $scoreBoard.html("click the board to start");
     });
  
+
+
+
+
+
+
+
+
 /*
 ----------------------------------------------------------------------------------------------------------------
     ____                 __  _                 
@@ -56,6 +68,26 @@ $(document).ready(function() {
 ----------------------------------------------------------------------------------------------------------------
 */  
 
+
+
+  function whichPlayer(gameOver) {
+    if(gameOver){
+      return "player2";
+    } else {
+      return "player1";
+    }
+  }
+
+  function gameOver(){
+    if(startingClicks - turnCounter >0 ) {
+      return true;
+    } else {
+      alert("You've run out of turns, it's player 2's turn!");
+      resetBoard();
+      return false;
+    }
+  }
+
   function setUpBoard(){
 
     var whichGrid = prompt("what size grid would you like - enter 3, 4, 5, 6, 7 or 8");
@@ -63,21 +95,27 @@ $(document).ready(function() {
     if(whichGrid == 3){
       removeGrid();
       create3X3();
+      startingClicks = startingClicksIndex[0];
     } else if (whichGrid == 4){
       removeGrid();
       create4X4();
+      startingClicks = startingClicksIndex[1];
     }else if (whichGrid == 5){
       removeGrid();
       create5X5();
+      startingClicks = startingClicksIndex[2];
     }else if (whichGrid == 6){
       removeGrid();
       create6X6();
+      startingClicks = startingClicksIndex[3];
     }else if (whichGrid == 7){
       removeGrid();
       create7X7();
+      startingClicks = startingClicksIndex[4];
     }else if (whichGrid == 8){
       removeGrid();
       create8X8();
+      startingClicks = startingClicksIndex[5];
     } 
 
   }
@@ -155,23 +193,8 @@ $(document).ready(function() {
     $($tileArray).css("height", "31%").css("width", "31%");
 
   }
-
-    function createDOMElement() {
-      
-      for (i=0;i<16;i++){
-        var newSquare = "<li id="+parseInt(i)+"></li>";
-        $(".grid").append(newSquare);
-      }
-
-      $tileArray = $("li");
-      // console.log($tileArray.length);
-
-      $($tileArray).css("height", "22%").css("width", "22%");
-
-    }
-
+  //deletes the DOM elements which currently exist. Use in conjuction with create Grid functions so you effectively remove and add new DOM elements. I think this is what is breaking my current game logic - investigate further.
     function removeGrid() {
- 
       $tileArray.each(function (i, value) { 
         $tileArray[i].remove();
       });
@@ -204,9 +227,7 @@ $(document).ready(function() {
         }
       });
 
-      // $("#remainingTiles").html("Remaining tiles: "+remainingTiles());
-
-      $scoreBoard.html("Clicks so far: "+turnCounter + "     |     Remaining Tiles: " + remainingTiles());
+      $scoreBoard.html("Clicks left: "+ (startingClicks- turnCounter) + "     |     Remaining Tiles: " + remainingTiles());
 
       if(greenTileCount == $tileArray.length) {
         alert("YOU HAVE WON");
@@ -219,7 +240,7 @@ $(document).ready(function() {
         greenTileCount = 0;
     };
 
-
+    // resets the board back to red and the counters back to 0
     function resetBoard() {
 
       $tileArray.each(function (i, value) {
@@ -320,12 +341,16 @@ $(document).ready(function() {
           turnCounter ++;
       }
 
+      animateRelTileArray = currentClick;
+
       for (i=0;i<currentClick.length; i++){
 
             var x = $tileArray[currentClick[i]].id;
             var str = "#"+x;
             var $tile = $(str);  
+            $tile.fadeOut(300);
             $tile.toggleClass("green");
+            $tile.fadeIn(300);
 
         }
     }
