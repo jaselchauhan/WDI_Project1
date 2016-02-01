@@ -134,12 +134,18 @@ li:hover{
   margin-left: 10%;
   margin-right: 10%;
   top:30%;
-/*  border: 2px solid beige;
+  border: 2px solid beige;
+  border-top: 3px solid beige;
   border-right: none;
-  border-left:none;*/
+  border-left:none;
   padding-top: 50px;
   padding-bottom:50px; 
+  background-color: rgba(35,55,35,0.7);
+  opacity: 0.5;
+  
 }
+
+
 
 #welcomeMessage{
   font-size: 22px;

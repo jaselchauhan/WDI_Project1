@@ -32,7 +32,7 @@ $(document).ready(function() {
   var livesCounter = 3;
 
   // change the way this interacts as currently not loggin correct result.
-  var remainingClicks = startingClicks- turnCounter;
+  // var remainingClicks = startingClicks- turnCounter;
 
   var grid3score = 0;
   var grid4score = 0;
@@ -41,20 +41,29 @@ $(document).ready(function() {
   var grid7score = 0;
   var grid8score = 0;
 
+  // var x = (startingClicks- turnCounter);
+
  //main code block. runs on each lite click.
   $('.grid').on("click", 'li', function(li) {
 
-          clickedIndex = this.id;
+    clickedIndex = this.id;
 
-          if(!gameOver()){ 
-              move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
-              $(this).fadeOut(100);     
-              $(this).fadeIn(200);
-              hasWon();
-          } else if (!!gameOver) {
-            //do i need a condition/animation here for when gameover evaluates to true.
-            console.log("testing condition for if game over is true");
-          }
+    turnCounter ++;
+
+    // console.log(startingClicks - turnCounter);
+
+      if(!gameOver()){ 
+        move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
+        $(this).fadeOut(100);     
+        $(this).fadeIn(200);
+        hasWon();
+        $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
+      } else {
+        //do i need a condition/animation here for when gameover evaluates to true.
+        // console.log("testing condition for if game over is true");
+        $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
+        gameOver();
+    }
   });
 /*
 -------------------------------------------------------------------------------------------------------------------------
@@ -131,11 +140,7 @@ $(document).ready(function() {
 ----------------------------------------------------------------------------------------------------------------
 */  
 
-  function updateRemainingClickCounter () {
-    remainingClicks = startingClicks- turnCounter;
-    console.log("you have " + remainingClicks + " clicks left")
-    return remainingClicks;
-  }
+  
 
   function prepBoard(){
     resetBoard();
@@ -148,25 +153,31 @@ $(document).ready(function() {
     //tests to see if player has lives left. if yes then do nothing but move onto next code block. if no, then bring back welcome screen and reset the lives counter to 3 ready for the next game.
 
     //also should show the scoreboard to show final score.
-
     if(livesCounter<=0){
       $gridSizeSelector.show();
       $welcomeMsg.show();
       $('#welcome').fadeIn();
+      $p1score.html("game over you've lost all your lives, select another grid below to start again!");
       resetBoard();
       livesCounter =3;
       return true;
     };
 
-    if(startingClicks - turnCounter > 0 ) {
+    if(startingClicks - turnCounter > 0) {
       return false;
     } else {
         $('#welcome').delay(400).fadeOut();
       $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
+
+      $tileArray.each(function(i, value){
+        $(this).delay(1000).fadeOut();
+        $(this).delay(4000).fadeIn();
+      })
+
       $gridSizeSelector.hide(); 
       $welcomeMsg.hide();
       $('#welcome').delay(400).fadeIn();
-      $('#welcome').delay(4000).fadeOut();
+      $('#welcome').delay(2000).fadeOut();
       livesCounter-=1;
       resetBoard();
       return true;
@@ -211,12 +222,8 @@ $(document).ready(function() {
         }
       });
 
-      $scoreBoard.html("clicks left: "+ (startingClicks- turnCounter) + "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
-
       if(greenTileCount == $tileArray.length) {
         $('#welcome').delay(400).fadeIn();
-        $(".grid").fadeOut(2000);
-        $(".grid").fadeIn(50);
         player1score = turnCounter;
         resetBoard();
 
@@ -226,32 +233,25 @@ $(document).ready(function() {
         $welcomeMsg.hide();
         $gridSizeSelector.show(); 
 
-
-        //change css background color of all li elements to green.
-        //hide and show these li elements so they are flashing.
-        //re-change the css background color of all li elements back to default red.
+        $tileArray.each(function(i, value){
+          $(this).css({"background-color":"rgba(41,242,44,0.8)"});
+          $(this).delay(1000).fadeOut();
+        })
         
-        $('#welcome').delay(4500).fadeOut();
         $p1score.html("you've won! " + player1score + " is the score for this level...choose next level to play");
-
         return true;
       }
         greenTileCount = 0;
     };
 
-
-
     // resets the board back to red and the counters back to 0
     function resetBoard() {
-
       $tileArray.each(function (i, value) {
-
         var removeGreen = $($tileArray[i]).removeClass("green");
         turnCounter = 0;
         greenTileCount = 0;
       });
     }
-
 
     //logic for turning the right grids to green. takes in 5 arguments - 4 of which are to check for where the borders of the grid lie, and the final argument is the clicked lite index number.
     function move (isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex) {
@@ -268,49 +268,22 @@ $(document).ready(function() {
 
       if(isTopRow(clickedIndex) && isLeftColumn(clickedIndex)){
         currentClick.push(rel1,rel4);
-        turnCounter ++;
-        updateRemainingClickCounter();
-        // console.log(updateRemainingClickCounter());
       } else if (isTopRow(clickedIndex) && isRightColumn(clickedIndex)) {
           currentClick.push(rel2,rel4);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else if (isBottomRow(clickedIndex) && isLeftColumn(clickedIndex)){
           currentClick.push(rel1,rel3);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else if (isBottomRow(clickedIndex) && isRightColumn(clickedIndex)){
           currentClick.push(rel2,rel3);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else if (isTopRow(clickedIndex)) {
           currentClick.push(rel1,rel2,rel4);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else if (isBottomRow(clickedIndex)){
           currentClick.push(rel1,rel2,rel3);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else if (isLeftColumn(clickedIndex)){
           currentClick.push(rel1,rel3,rel4);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else if (isRightColumn(clickedIndex)){
           currentClick.push(rel2,rel3,rel4);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       } else {
           currentClick.push(rel1,rel2,rel3,rel4);
-          turnCounter ++;
-          updateRemainingClickCounter();
-          // console.log(updateRemainingClickCounter());
       }
 
       animateRelTileArray = currentClick;
@@ -373,17 +346,14 @@ $(document).ready(function() {
       }
     }
 
-
     function create8X8 () {
-
       for (i=0;i<64;i++){
         var newSquare = "<li id="+parseInt(i)+"></li>";
         $(".grid").append(newSquare);
       }
-
         $tileArray = $("li");
         row_length = Math.sqrt($tileArray.length); 
-        $($tileArray).css("height", "10%").css("width", "10%");
+        $tileArray.css("height", "10%").css("width", "10%");
     }
 
     function create7X7 () {
@@ -391,11 +361,9 @@ $(document).ready(function() {
         var newSquare = "<li id="+parseInt(i)+"></li>";
         $(".grid").append(newSquare);
       }
-
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $($tileArray).css("height", "12%").css("width", "12%");
-
+      $tileArray.css("height", "12%").css("width", "12%");
     }
 
     function create6X6 () {
@@ -403,11 +371,9 @@ $(document).ready(function() {
         var newSquare = "<li id="+parseInt(i)+"></li>";
         $(".grid").append(newSquare);
       }
-
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $($tileArray).css("height", "14%").css("width", "14%");
-
+      $tileArray.css("height", "14%").css("width", "14%");
     }
 
     function create5X5 () {
@@ -415,11 +381,9 @@ $(document).ready(function() {
         var newSquare = "<li id="+parseInt(i)+"></li>";
         $(".grid").append(newSquare);
       }
-
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $($tileArray).css("height", "18%").css("width", "18%");
-
+      $tileArray.css("height", "18%").css("width", "18%");
     }
 
     function create4X4 () {
@@ -430,10 +394,9 @@ $(document).ready(function() {
 
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $($tileArray).css("height", "23%").css("width", "23%");
+      $tileArray.css("height", "23%").css("width", "23%");
 
     }
-
 
     function create3X3 () {
       for (i=0;i<9;i++){
@@ -443,7 +406,7 @@ $(document).ready(function() {
 
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $($tileArray).css("height", "31%").css("width", "31%");
+      $tileArray.css("height", "31%").css("width", "31%");
 
     }
 
@@ -455,27 +418,21 @@ $(document).ready(function() {
 
         if (arrayLength ===9){
           grid3score= player1score;
-          // console.log(grid3score);
           $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===16){
           grid4score= player1score;
-          // console.log(grid4score);
           $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===25){
             grid5score= player1score;
-            // console.log(grid5score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===36){
             grid6score= player1score;
-            // console.log(grid6score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===49){
             grid7score= player1score;
-            // console.log(grid7score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===64){
             grid8score= player1score;
-            // console.log(grid8score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         }
     }
