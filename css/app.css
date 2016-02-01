@@ -179,6 +179,8 @@ li:hover{
   #score {
     font-size: 16px;
     margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 10px;
   }
 
   ul {
@@ -188,10 +190,21 @@ li:hover{
 
   #reset{
     font-size: 16px;
+    position: absolute;
+
+  }
+
+  #howtoplay{
+    font-size:16px;
   }
 
   #instructions{
-    font-size:14px;
+    font-size:16px;
+    margin-top: -30px;
+  }
+
+  #howtoplaytext{
+    font-size: 14px;
   }
 
   .gridSizeSelector{
@@ -202,7 +215,8 @@ li:hover{
   }
   
   #playerScoreboard{
-    font-size:14px;
+    font-size:8px;
+    margin-top: -40px;
   }
 
 }

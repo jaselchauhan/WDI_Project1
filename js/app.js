@@ -5,7 +5,6 @@ $(document).ready(function() {
   animateBackground();
 
   
-  
   //declare all jQuery DOM variables here.
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
@@ -163,8 +162,6 @@ $(document).ready(function() {
 ----------------------------------------------------------------------------------------------------------------
 */  
 
-  
-
   function prepBoard(){
     resetBoard();
     $scoreBoard.html("----------");
@@ -261,7 +258,7 @@ $(document).ready(function() {
         $welcomeMsg.hide();
         $gridSizeSelector.show(); 
 
-        $playerScoreboard.css({ 'font-size': '26px'});
+        // $playerScoreboard.css({ 'font-size': '26px'});
         // $playerScoreboard.css({"color":"rgb(255, 144, 0)" });
 
         $tileArray.each(function(i, value){
