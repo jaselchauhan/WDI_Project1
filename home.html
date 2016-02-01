@@ -3,6 +3,7 @@
 <head>
   <title>litesweeper</title>
   <link rel="icon" href="fav2.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
   <link rel="stylesheet" type="text/css" href="./css/reset.css">
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -14,10 +15,6 @@
 
 </head>
 <body>
-
-  <!-- <audio id ="clickSound" src = "sound/click.wav" autoplay mute>
-    Your browser does not suppor the HTML 5 audio tag
-  </audio> -->
 
   <div class="container">
 
@@ -45,10 +42,11 @@
   </div>
 
   <div id="reset">click to reset</div><br><br>
+  
 
-  <div id="instructions">the <strong>aim of the game</strong> is to turn the board from red to green by pressing on the lites. There's a twist though - each click will toggle the clicked lite and also its adjacent lites green/red. The board needs to be all green to win before you run out of clicks. You have 3 lives and can reset the board if you wish but it'll cost you a life. Good luck!</div><br><br><br>
+  <div id="instructions"><h3 id="howtoplay">how to play</h3><br><p id="howtoplaytext">the <strong>aim of the game</strong> is to turn the board from red to green by pressing on the lites.<br> There's a twist though - each click will toggle the clicked lite and also its adjacent lites green/red. <br>The board needs to be all green to win before you run out of clicks. <br>You have 3 lives and can reset the board if you wish but it'll cost you a life.<br><br> <span id="goodLuck">Good luck!</span></p></div><br><br><br>
 
-  <div id="playerScoreboard">placeholder for score</div>
+  <div id="playerScoreboard">...</div>
 
 </body>
 </html> 
@@ -58,15 +56,11 @@
 
 issues - 
 
-for presentation - send heroku url link to everyone in class so they can play on their phone.
+add a readme containing overview of game, how to play, etc.
 
-one extra click is required to register you've run out of clicks. ie. the counter says 0 and yet you need to click once more to get the welcome message back
+for presentation - send heroku url link to peers via slack so anyone who wants to play can on their phone/pc! - how to do this so auto opens on phone? if ppl dont have slack on their phone then 
 
-logic is broken once lives is 0 - message still begins with wise deciosn. need control flow in code to say if lives = 0 say another message.
 
-when you run out of lives display a new message and allso make scoreboard float intomiddle of screen
-
-fix styling on welcoem message. 
 
 
                     __          __                              
@@ -77,16 +71,26 @@ fix styling on welcoem message.
                                     /_/                         
 
 
-2. game logic - add the score and level completed to an array/obj where it can 
+1. move instructions div to middle of screen and then slide down to normal position and fade in the welcome message div.
+
+2. style welcome page so font color is gradient of beige and title is brighter than text etc.
+
+3. on small screen size hide the instruction list after initial screen load up
+
+4. make scoreboard smaller so is on 2 lines
+
+5. reduce space between reset button and instructions on smaller screen
+
+
+
+
+
 
 
 1 - user flow
 
-add a drop down instruction menu style UI. use slideTOggle
-consider UI for welcome screen - should resize on smaller screen.
 these dd menus should resize for mobile view
 welcome screen message animations
-scorebaord animations.
 
 4. animation, sounds and styling:
   c) consider other animations based on flow of how user would interact.
@@ -96,23 +100,5 @@ scorebaord animations.
   sound for lose
   sound on start
   d)monserrat font chain for backup fonts.
-
-  // function clickSound(){
-  //   var audio = document.getElementById("clickSound");
-  //   audio.play();
-  // } 
-
-  b) color themes for ambient background: dark background -black grey hues. grid looks much better like this! further note. add a couple of bright colors in there which wont clash with red or green.
-
-
-
-easter eggs:
-
-switch color scheme mode.
-make button presses look better.
-logic so that if reset the messages change to something different than loadup messages.
-scrolling background image?
-on win header gets biggers and flies into middle of screen.
-an ambient color changer based upon the click/tilesRemaining ratio - will change depending on ratio
 
 -->

@@ -3,6 +3,8 @@ $(document).ready(function() {
   console.log("jQuery has loaded");
 
   animateBackground();
+
+  
   
   //declare all jQuery DOM variables here.
   var $tileArray = $("li");
@@ -19,6 +21,8 @@ $(document).ready(function() {
   var $gridSizeSelector = $(".gridSizeSelector");
   var $welcomeMsg = $('#welcomeMessage');
   var $playerScoreboard = $("#playerScoreboard");
+  var $instructions = $("#instructions");
+  var $instr_text = $('#howtoplaytext');
 
   //declare other variables here
   var row_length = Math.sqrt($tileArray.length); 
@@ -31,9 +35,6 @@ $(document).ready(function() {
   var animateRelTileArray = [];
   var livesCounter = 3;
 
-  // change the way this interacts as currently not loggin correct result.
-  // var remainingClicks = startingClicks- turnCounter;
-
   var grid3score = 0;
   var grid4score = 0;
   var grid5score = 0;
@@ -41,7 +42,7 @@ $(document).ready(function() {
   var grid7score = 0;
   var grid8score = 0;
 
-  // var x = (startingClicks- turnCounter);
+  $instr_text.hide();
 
  //main code block. runs on each lite click.
   $('.grid').on("click", 'li', function(li) {
@@ -50,8 +51,6 @@ $(document).ready(function() {
 
     turnCounter ++;
 
-    // console.log(startingClicks - turnCounter);
-
       if(!gameOver()){ 
         move(isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex);
         $(this).fadeOut(100);     
@@ -59,8 +58,6 @@ $(document).ready(function() {
         hasWon();
         $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
       } else {
-        //do i need a condition/animation here for when gameover evaluates to true.
-        // console.log("testing condition for if game over is true");
         $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
         gameOver();
     }
@@ -72,6 +69,14 @@ $(document).ready(function() {
 
 -------------------------------------------------------------------------------------------------------------------------
 */
+    $instructions.click(function(){
+        $instructions.children('p').slideToggle();
+    });
+
+    // $('.mainMenu').children('li').on('click', function() {
+    //    $(this).children('ul').slideToggle('slow'); 
+    // });
+
     //on reset click event run resetBoard function and update the text on screen.
     $($reset).click(function() {
       resetBoard();
@@ -85,6 +90,12 @@ $(document).ready(function() {
 
       $gridSizeSelector.show();
       $('#welcome').delay(1000).fadeIn();
+
+      $tileArray.each(function(i, value){
+        $(this).delay(1000).fadeOut();
+        $(this).delay(3000).fadeIn();
+      })
+
     });
 
     //sets board up as 3by3
@@ -92,6 +103,8 @@ $(document).ready(function() {
       prepBoard();
       create3X3();
       startingClicks = startingClicksIndex[0];
+      $instr_text.fadeOut(400);
+      $playerScoreboard.css({ 'font-size': '16px'});
     });
 
     //sets board up as 4X4
@@ -99,6 +112,8 @@ $(document).ready(function() {
       prepBoard();
       create4X4();
       startingClicks = startingClicksIndex[1];
+      $instr_text.fadeOut(400);
+      $playerScoreboard.css({ 'font-size': '16px'});
     });
 
     //sets board up as 5X5
@@ -106,6 +121,8 @@ $(document).ready(function() {
       prepBoard();
       create5X5();
       startingClicks = startingClicksIndex[2];
+      $instr_text.fadeOut(400);
+      $playerScoreboard.css({ 'font-size': '16px'});
     });
 
     //sets board up as 6X6
@@ -113,6 +130,8 @@ $(document).ready(function() {
       prepBoard();
       create6X6();
       startingClicks = startingClicksIndex[3];
+      $instr_text.fadeOut(400);
+      $playerScoreboard.css({ 'font-size': '16px'});
     });
 
     //sets board up as 7X7
@@ -120,6 +139,8 @@ $(document).ready(function() {
       prepBoard();
       create7X7();
       startingClicks = startingClicksIndex[4];
+      $instr_text.fadeOut(400);
+      $playerScoreboard.css({ 'font-size': '16px'});
     });
 
     //sets board up as 8X8
@@ -127,6 +148,8 @@ $(document).ready(function() {
       prepBoard();
       create8X8();
       startingClicks = startingClicksIndex[5];
+      $instr_text.fadeOut(400);
+      $playerScoreboard.css({ 'font-size': '16px'});
     });
 
 /*
@@ -146,7 +169,7 @@ $(document).ready(function() {
     resetBoard();
     $scoreBoard.html("----------");
     removeGrid();
-    $('#welcome').delay(400).fadeOut();
+    $('#welcome').delay(300).fadeOut();
   };
                
   function gameOver(){
@@ -156,7 +179,12 @@ $(document).ready(function() {
     if(livesCounter<=0){
       $gridSizeSelector.show();
       $welcomeMsg.show();
+      $tileArray.each(function(i, value){
+        $(this).delay(1000).fadeOut();
+      })
+      $welcomeMsg.hide();
       $('#welcome').fadeIn();
+      $playerScoreboard.html("Game Over...");
       $p1score.html("game over you've lost all your lives, select another grid below to start again!");
       resetBoard();
       livesCounter =3;
@@ -167,11 +195,11 @@ $(document).ready(function() {
       return false;
     } else {
         $('#welcome').delay(400).fadeOut();
-      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
+      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1) + "....board restarting....");
 
       $tileArray.each(function(i, value){
         $(this).delay(1000).fadeOut();
-        $(this).delay(4000).fadeIn();
+        $(this).delay(3000).fadeIn();
       })
 
       $gridSizeSelector.hide(); 
@@ -233,16 +261,21 @@ $(document).ready(function() {
         $welcomeMsg.hide();
         $gridSizeSelector.show(); 
 
+        $playerScoreboard.css({ 'font-size': '26px'});
+        // $playerScoreboard.css({"color":"rgb(255, 144, 0)" });
+
         $tileArray.each(function(i, value){
           $(this).css({"background-color":"rgba(41,242,44,0.8)"});
           $(this).delay(1000).fadeOut();
         })
+
+
         
         $p1score.html("you've won! " + player1score + " is the score for this level...choose next level to play");
         return true;
       }
         greenTileCount = 0;
-    };
+    }
 
     // resets the board back to red and the counters back to 0
     function resetBoard() {
@@ -296,7 +329,6 @@ $(document).ready(function() {
             $tile.fadeOut(300);
             $tile.toggleClass("green");
             $tile.fadeIn(300);
-
         }
     }
 
@@ -383,7 +415,7 @@ $(document).ready(function() {
       }
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $tileArray.css("height", "18%").css("width", "18%");
+      $tileArray.css("height", "17%").css("width", "17%");
     }
 
     function create4X4 () {
@@ -394,7 +426,7 @@ $(document).ready(function() {
 
       $tileArray = $("li");
       row_length = Math.sqrt($tileArray.length);
-      $tileArray.css("height", "23%").css("width", "23%");
+      $tileArray.css("height", "22%").css("width", "22%");
 
     }
 
@@ -410,7 +442,7 @@ $(document).ready(function() {
 
     }
 
-    //socreboard using row length to calc grid size and then store in relvant array/obj. then call this and display as a DOM element when lives remaining = 0;
+    //scoreboard using row length to calc grid size and then store in relvant array/obj. then call this and display as a DOM element when lives remaining = 0;
 
     function addToScoreBoard(){
 
@@ -418,23 +450,20 @@ $(document).ready(function() {
 
         if (arrayLength ===9){
           grid3score= player1score;
-          $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===16){
           grid4score= player1score;
-          $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===25){
             grid5score= player1score;
-            $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===36){
             grid6score= player1score;
-            $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===49){
             grid7score= player1score;
-            $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===64){
             grid8score= player1score;
-            $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
+            
         }
+
+        $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
     }
 
 });
