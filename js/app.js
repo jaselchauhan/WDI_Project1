@@ -1,15 +1,14 @@
 $(document).ready(function() {
 
-  console.log("jQuery has loaded");
+  console.log("jQuery load pass");
 
   animateBackground();
 
-  
   //declare all jQuery DOM variables here.
   var $tileArray = $("li");
   var $scoreBoard = $("#score");
   var $reset = $("#reset");
-  var $4X4 = $("#4X4");
+  // var $4X4 = $("#4X4");
   var $selectThree = $("#threeBythree");
   var $selectFour = $("#fourByfour");
   var $selectFive = $("#fiveByfive");
@@ -33,13 +32,9 @@ $(document).ready(function() {
   var startingClicksIndex = [8,15,35,50,75,100];
   var animateRelTileArray = [];
   var livesCounter = 3;
-
-  var grid3score = 0;
-  var grid4score = 0;
-  var grid5score = 0;
-  var grid6score = 0;
-  var grid7score = 0;
-  var grid8score = 0;
+  var tilesToGo = 0;
+  var grid3score = 0, grid4score = 0,grid5score = 0, grid6score = 0, grid7score = 0, grid8score = 0;
+  
 
   $instr_text.hide();
 
@@ -55,26 +50,24 @@ $(document).ready(function() {
         $(this).fadeOut(100);     
         $(this).fadeIn(200);
         hasWon();
-        $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
       } else {
-        $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
         gameOver();
     }
+    console.log(tilesToGo + " is the tiles go go number of rem tiles")
+      $scoreBoard.html("clicks left: "+ (startingClicks - turnCounter) +  "     |     remaining tiles: " + remainingTiles() + "  |  lives remaining: " + livesCounter );
+
   });
 /*
--------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // other click event listeners below
+  // EVENT LISTENERS //
 
+-----------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
 */
     $instructions.click(function(){
         $instructions.children('p').slideToggle();
     });
-
-    // $('.mainMenu').children('li').on('click', function() {
-    //    $(this).children('ul').slideToggle('slow'); 
-    // });
 
     //on reset click event run resetBoard function and update the text on screen.
     $($reset).click(function() {
@@ -83,10 +76,9 @@ $(document).ready(function() {
 
       if(livesCounter > 0){
         livesCounter -=1;
-        $p1score.html("wise decision...maybe it's time for another level? | Remaining lives: " + livesCounter);
-      } else if (livesCounter === 0) {
-        $p1score.html("unlucky, that's game over...you can't beat me that easily! Though you might be able to after a few tries!")}
-
+        $p1score.html("wise decision...maybe it's time for another level? | remaining lives: " + livesCounter);
+      }
+  
       $gridSizeSelector.show();
       $('#welcome').delay(1000).fadeIn();
 
@@ -153,14 +145,16 @@ $(document).ready(function() {
 
 /*
 ----------------------------------------------------------------------------------------------------------------
-    ____                 __  _                 
-   / __/_  ______  _____/ /_(_)___  ____  _____
-  / /_/ / / / __ \/ ___/ __/ / __ \/ __ \/ ___/
- / __/ /_/ / / / / /__/ /_/ / /_/ / / / (__  ) 
-/_/  \__,_/_/ /_/\___/\__/_/\____/_/ /_/____/  
-                                               
 ----------------------------------------------------------------------------------------------------------------
+
+// FUNCTIONS //
+
+---------------------------------------------------------------------------------------------------------------- ----------------------------------------------------------------------------------------------------------------
 */  
+  function animateClickedTile() {
+    $(this).fadeOut(100);     
+    $(this).fadeIn(200);
+  }
 
   function prepBoard(){
     resetBoard();
@@ -175,14 +169,14 @@ $(document).ready(function() {
     //also should show the scoreboard to show final score.
     if(livesCounter<=0){
       $gridSizeSelector.show();
+      $welcomeMsg.html("play again");
       $welcomeMsg.show();
       $tileArray.each(function(i, value){
         $(this).delay(1000).fadeOut();
       })
-      $welcomeMsg.hide();
       $('#welcome').fadeIn();
       $playerScoreboard.html("Game Over...");
-      $p1score.html("game over you've lost all your lives, select another grid below to start again!");
+      $p1score.html("unlucky, that's game over...you can't beat me that easily! though you might be able to after a few tries!");
       resetBoard();
       livesCounter =3;
       return true;
@@ -192,7 +186,7 @@ $(document).ready(function() {
       return false;
     } else {
         $('#welcome').delay(400).fadeOut();
-      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1) + "....board restarting....");
+      $p1score.html("you've run out of clicks... try again. lives remaining: " + (livesCounter -1) + "....board restarting....");
 
       $tileArray.each(function(i, value){
         $(this).delay(1000).fadeOut();
@@ -209,7 +203,6 @@ $(document).ready(function() {
       }
     }
 
-
   //deletes the DOM elements which currently exist. Use in conjuction with create Grid functions so you effectively remove and add new DOM elements. I think this is what is breaking my current game logic - investigate further.
     function removeGrid() {
       $tileArray.each(function (i, value) { 
@@ -219,7 +212,9 @@ $(document).ready(function() {
 
   //calculates the remaining tiles to go green and returns the results for use in hasWon function
     function remainingTiles () {
-       return $tileArray.length - greenTileCount;
+      console.log(greenTileCount + " from the remaing tiles function");
+       return $tileArray.length - tilesToGo;
+
     }
 
     //animates the tiles on click
@@ -232,7 +227,9 @@ $(document).ready(function() {
     function animateBackground(){
     $('body').ambience({
       time:3000, 
-      colors: ['black','darkgrey','darkblue', 'cyan','black','darkgrey','darkblue','cyan']}
+      colors: ['black','darkgrey','darkblue', 'cyan','black','darkgrey','cyan','darkblue','cyan'],
+      speed:"fast"
+      }
       );  
     };
     
@@ -241,12 +238,19 @@ $(document).ready(function() {
 
     function hasWon(){
 
+      //check all the lites to check if they're green. if so add one to the greentilecounter
       $tileArray.each(function (i, value) {
         if($($tileArray[i]).attr('class') === "green"){
           greenTileCount ++;
         }
       });
 
+      tilesToGo = greenTileCount;
+
+      //log valueof greentielcounter at start
+      console.log(greenTileCount + " at start of function")
+
+      // if number of green tiles = the array length then youve won.
       if(greenTileCount == $tileArray.length) {
         $('#welcome').delay(400).fadeIn();
         player1score = turnCounter;
@@ -255,19 +259,13 @@ $(document).ready(function() {
         addToScoreBoard();
 
         $gridSizeSelector.hide();
-        $welcomeMsg.hide();
+        // $welcomeMsg.hide();
         $gridSizeSelector.show(); 
-
-        // $playerScoreboard.css({ 'font-size': '26px'});
-        // $playerScoreboard.css({"color":"rgb(255, 144, 0)" });
 
         $tileArray.each(function(i, value){
           $(this).css({"background-color":"rgba(41,242,44,0.8)"});
           $(this).delay(1000).fadeOut();
         })
-
-
-        
         $p1score.html("you've won, big ups! choose next level to play");
         return true;
       }
@@ -287,6 +285,7 @@ $(document).ready(function() {
     function move (isTopRow,isBottomRow,isLeftColumn,isRightColumn, clickedIndex) {
 
       var currentClick = [];
+      $welcomeMsg.hide();
 
       var indexAsNumber = parseInt(clickedIndex);
       currentClick.push(indexAsNumber);
@@ -375,6 +374,8 @@ $(document).ready(function() {
       }
     }
 
+    //the below functions create the different sized grid boards by adding new li DOM elements and then resizing them as a percentage of their container so create the correct grid shape.
+
     function create8X8 () {
       for (i=0;i<64;i++){
         var newSquare = "<li id="+parseInt(i)+"></li>";
@@ -456,8 +457,7 @@ $(document).ready(function() {
         } else if (arrayLength ===49){
             grid7score= player1score;
         } else if (arrayLength ===64){
-            grid8score= player1score;
-            
+            grid8score= player1score;     
         }
 
         $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
