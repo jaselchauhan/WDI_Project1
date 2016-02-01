@@ -43,8 +43,7 @@ $(document).ready(function() {
 
  //main code block. runs on each lite click.
   $('.grid').on("click", 'li', function(li) {
-      
-          // clickSound();
+
           clickedIndex = this.id;
 
           if(!gameOver()){ 
@@ -53,6 +52,7 @@ $(document).ready(function() {
               $(this).fadeIn(200);
               hasWon();
           } else if (!!gameOver) {
+            //do i need a condition/animation here for when gameover evaluates to true.
             console.log("testing condition for if game over is true");
           }
   });
@@ -67,11 +67,10 @@ $(document).ready(function() {
     $($reset).click(function() {
       resetBoard();
       $scoreBoard.html("----------");
-      // console.log(livesCounter+" before displaying on dom");
+
       if(livesCounter > 0){
-      livesCounter -=1;
-      $p1score.html("wise decision...maybe it's time for another level? | Remaining lives: " + livesCounter);
-      console.log(livesCounter + " is your remaining life count");
+        livesCounter -=1;
+        $p1score.html("wise decision...maybe it's time for another level? | Remaining lives: " + livesCounter);
       } else if (livesCounter === 0) {
         $p1score.html("unlucky, that's game over...you can't beat me that easily! Though you might be able to after a few tries!")}
 
@@ -84,7 +83,6 @@ $(document).ready(function() {
       prepBoard();
       create3X3();
       startingClicks = startingClicksIndex[0];
-
     });
 
     //sets board up as 4X4
@@ -92,7 +90,6 @@ $(document).ready(function() {
       prepBoard();
       create4X4();
       startingClicks = startingClicksIndex[1];
-
     });
 
     //sets board up as 5X5
@@ -100,7 +97,6 @@ $(document).ready(function() {
       prepBoard();
       create5X5();
       startingClicks = startingClicksIndex[2];
-
     });
 
     //sets board up as 6X6
@@ -108,7 +104,6 @@ $(document).ready(function() {
       prepBoard();
       create6X6();
       startingClicks = startingClicksIndex[3];
-
     });
 
     //sets board up as 7X7
@@ -116,7 +111,6 @@ $(document).ready(function() {
       prepBoard();
       create7X7();
       startingClicks = startingClicksIndex[4];
-
     });
 
     //sets board up as 8X8
@@ -124,7 +118,6 @@ $(document).ready(function() {
       prepBoard();
       create8X8();
       startingClicks = startingClicksIndex[5];
-
     });
 
 /*
@@ -144,57 +137,17 @@ $(document).ready(function() {
     return remainingClicks;
   }
 
-  // this function checks the remaining lives left at the start of each turn. If there are no lives left the console will log.
-  function checkLivesRemaining(){
-    if(livesCounter <= 0){
-      console.log("lives have run out! please restart browser and try again");
-      $gridSizeSelector.show();
-      $welcomeMsg.show();
-      $('#welcome').fadeIn();
-      resetBoard();
-      livesCounter =3;
-      return true;
-    } else {
-      console.log("still lives left, keep going!");
-      return false;
-    }
-  } 
-
-
-  function checkRemainingClicks (remainingClicks) {
-
-    console.log("this is the number of remaining clicks passed into checkRemainingClicks function: " + remainingClicks);
-
-    if (remainingClicks > 0) {
-      return false;
-    } else if (remainingClicks <= 0){
-      $('#welcome').delay(400).fadeOut();
-      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
-      $gridSizeSelector.hide(); 
-      $welcomeMsg.hide();
-      $('#welcome').delay(400).fadeIn();
-      $('#welcome').delay(4000).fadeOut();
-      livesCounter-=1;
-      resetBoard();
-      return true;
-    }
-  }
-
-
-
   function prepBoard(){
     resetBoard();
     $scoreBoard.html("----------");
     removeGrid();
     $('#welcome').delay(400).fadeOut();
   };
-
-  // function clickSound(){
-  //   var audio = document.getElementById("clickSound");
-  //   audio.play();
-  // }                
-
+               
   function gameOver(){
+    //tests to see if player has lives left. if yes then do nothing but move onto next code block. if no, then bring back welcome screen and reset the lives counter to 3 ready for the next game.
+
+    //also should show the scoreboard to show final score.
 
     if(livesCounter<=0){
       $gridSizeSelector.show();
@@ -203,44 +156,20 @@ $(document).ready(function() {
       resetBoard();
       livesCounter =3;
       return true;
-    }
+    };
 
-    // checkLivesRemaining();
-
-    // checkRemainingClicks();
-
-    //if the results of checkLivesRemaining and checkRemainingClicks are both true then the game is Over and a game over message appears on screen. if not then gameOver is false and turn continues
-    // if(checkLivesRemaining == true && checkRemainingClicks == true) {
-    //   console.log(" gameOver has evaluated to true....game is over!!!")
-    //   return true;
-    // } else if (checkLivesRemaining = false && checkRemainingClicks == true){
-    //   console.log("YOU'RE OUTTA CLICKS BUDDY....WHO YOU CALLING BUDDY")
-    // }
-    // else {
-    //   console.log("game over has evaluated to false... keep trying!!")
-    //   return false;
-    // }
-
-    // //might not need this as line below is checkng
-    
-    // checkRemainingClicks();
-    // checkLivesRemaining();
-
-
-    // if(checkLivesRemaining()){
-
-      if(startingClicks - turnCounter > 0 ) {
-        return false;
-      } else {
+    if(startingClicks - turnCounter > 0 ) {
+      return false;
+    } else {
         $('#welcome').delay(400).fadeOut();
-        $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
-        $gridSizeSelector.hide(); 
-        $welcomeMsg.hide();
-        $('#welcome').delay(400).fadeIn();
-        $('#welcome').delay(4000).fadeOut();
-        livesCounter-=1;
-        resetBoard();
-        return true;
+      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
+      $gridSizeSelector.hide(); 
+      $welcomeMsg.hide();
+      $('#welcome').delay(400).fadeIn();
+      $('#welcome').delay(4000).fadeOut();
+      livesCounter-=1;
+      resetBoard();
+      return true;
       }
     }
 
@@ -296,6 +225,12 @@ $(document).ready(function() {
         $gridSizeSelector.hide();
         $welcomeMsg.hide();
         $gridSizeSelector.show(); 
+
+
+        //change css background color of all li elements to green.
+        //hide and show these li elements so they are flashing.
+        //re-change the css background color of all li elements back to default red.
+        
         $('#welcome').delay(4500).fadeOut();
         $p1score.html("you've won! " + player1score + " is the score for this level...choose next level to play");
 
