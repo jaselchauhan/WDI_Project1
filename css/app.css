@@ -145,6 +145,12 @@ li:hover{
   font-size: 22px;
 }
 
+#playerScoreboard{
+  width:80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 
 @media only screen and (max-width: 640px) {
   
@@ -175,4 +181,9 @@ li:hover{
   #welcome{
     font-size: 14px;
   }
+  
+  #playerScoreboard{
+    font-size:14px;
+  }
+
 }
