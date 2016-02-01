@@ -31,8 +31,9 @@ $(document).ready(function() {
   var animateRelTileArray = [];
   var livesCounter = 3;
 
+  // change the way this interacts as currently not loggin correct result.
+  var remainingClicks = startingClicks- turnCounter;
 
-  // var whichPlayer = 0;
   var grid3score = 0;
   var grid4score = 0;
   var grid5score = 0;
@@ -137,17 +138,49 @@ $(document).ready(function() {
 ----------------------------------------------------------------------------------------------------------------
 */  
 
+  function updateRemainingClickCounter () {
+    remainingClicks = startingClicks- turnCounter;
+    console.log("you have " + remainingClicks + " clicks left")
+    return remainingClicks;
+  }
 
   // this function checks the remaining lives left at the start of each turn. If there are no lives left the console will log.
-  function checkLivesRemaining(livesCounter){
+  function checkLivesRemaining(){
     if(livesCounter <= 0){
       console.log("lives have run out! please restart browser and try again");
+      $gridSizeSelector.show();
+      $welcomeMsg.show();
+      $('#welcome').fadeIn();
+      resetBoard();
+      livesCounter =3;
       return true;
     } else {
-
+      console.log("still lives left, keep going!");
       return false;
     }
   } 
+
+
+  function checkRemainingClicks (remainingClicks) {
+
+    console.log("this is the number of remaining clicks passed into checkRemainingClicks function: " + remainingClicks);
+
+    if (remainingClicks > 0) {
+      return false;
+    } else if (remainingClicks <= 0){
+      $('#welcome').delay(400).fadeOut();
+      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
+      $gridSizeSelector.hide(); 
+      $welcomeMsg.hide();
+      $('#welcome').delay(400).fadeIn();
+      $('#welcome').delay(4000).fadeOut();
+      livesCounter-=1;
+      resetBoard();
+      return true;
+    }
+  }
+
+
 
   function prepBoard(){
     resetBoard();
@@ -161,8 +194,8 @@ $(document).ready(function() {
   //   audio.play();
   // }                
 
-
   function gameOver(){
+
     if(livesCounter<=0){
       $gridSizeSelector.show();
       $welcomeMsg.show();
@@ -172,20 +205,45 @@ $(document).ready(function() {
       return true;
     }
 
-    if(startingClicks - turnCounter > 0 ) {
-      return false;
-    } else {
-      $('#welcome').delay(400).fadeOut();
-      $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
-      $gridSizeSelector.hide(); 
-      $welcomeMsg.hide();
-      $('#welcome').delay(400).fadeIn();
-      $('#welcome').delay(4000).fadeOut();
-      livesCounter-=1;
-      resetBoard();
-      return true;
+    // checkLivesRemaining();
+
+    // checkRemainingClicks();
+
+    //if the results of checkLivesRemaining and checkRemainingClicks are both true then the game is Over and a game over message appears on screen. if not then gameOver is false and turn continues
+    // if(checkLivesRemaining == true && checkRemainingClicks == true) {
+    //   console.log(" gameOver has evaluated to true....game is over!!!")
+    //   return true;
+    // } else if (checkLivesRemaining = false && checkRemainingClicks == true){
+    //   console.log("YOU'RE OUTTA CLICKS BUDDY....WHO YOU CALLING BUDDY")
+    // }
+    // else {
+    //   console.log("game over has evaluated to false... keep trying!!")
+    //   return false;
+    // }
+
+    // //might not need this as line below is checkng
+    
+    // checkRemainingClicks();
+    // checkLivesRemaining();
+
+
+    // if(checkLivesRemaining()){
+
+      if(startingClicks - turnCounter > 0 ) {
+        return false;
+      } else {
+        $('#welcome').delay(400).fadeOut();
+        $p1score.html("you've run out of clicks... try again. Lives remaining: " + (livesCounter -1));
+        $gridSizeSelector.hide(); 
+        $welcomeMsg.hide();
+        $('#welcome').delay(400).fadeIn();
+        $('#welcome').delay(4000).fadeOut();
+        livesCounter-=1;
+        resetBoard();
+        return true;
+      }
     }
-  }
+
 
   //deletes the DOM elements which currently exist. Use in conjuction with create Grid functions so you effectively remove and add new DOM elements. I think this is what is breaking my current game logic - investigate further.
     function removeGrid() {
@@ -276,30 +334,48 @@ $(document).ready(function() {
       if(isTopRow(clickedIndex) && isLeftColumn(clickedIndex)){
         currentClick.push(rel1,rel4);
         turnCounter ++;
+        updateRemainingClickCounter();
+        // console.log(updateRemainingClickCounter());
       } else if (isTopRow(clickedIndex) && isRightColumn(clickedIndex)) {
           currentClick.push(rel2,rel4);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else if (isBottomRow(clickedIndex) && isLeftColumn(clickedIndex)){
           currentClick.push(rel1,rel3);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else if (isBottomRow(clickedIndex) && isRightColumn(clickedIndex)){
           currentClick.push(rel2,rel3);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else if (isTopRow(clickedIndex)) {
           currentClick.push(rel1,rel2,rel4);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else if (isBottomRow(clickedIndex)){
           currentClick.push(rel1,rel2,rel3);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else if (isLeftColumn(clickedIndex)){
           currentClick.push(rel1,rel3,rel4);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else if (isRightColumn(clickedIndex)){
           currentClick.push(rel2,rel3,rel4);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       } else {
           currentClick.push(rel1,rel2,rel3,rel4);
           turnCounter ++;
+          updateRemainingClickCounter();
+          // console.log(updateRemainingClickCounter());
       }
 
       animateRelTileArray = currentClick;
@@ -444,27 +520,27 @@ $(document).ready(function() {
 
         if (arrayLength ===9){
           grid3score= player1score;
-          console.log(grid3score);
+          // console.log(grid3score);
           $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===16){
           grid4score= player1score;
-          console.log(grid4score);
+          // console.log(grid4score);
           $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===25){
             grid5score= player1score;
-            console.log(grid5score);
+            // console.log(grid5score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===36){
             grid6score= player1score;
-            console.log(grid6score);
+            // console.log(grid6score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===49){
             grid7score= player1score;
-            console.log(grid7score);
+            // console.log(grid7score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         } else if (arrayLength ===64){
             grid8score= player1score;
-            console.log(grid8score);
+            // console.log(grid8score);
             $playerScoreboard.html("3X3 score: " + grid3score + " | " + "4X4 score: " + grid4score + " | " +"5X5 score: " + grid5score + " | " +"6X6 score: " + grid6score + " | " +"7X7 score: " + grid7score + " | "+"8X8 score: " + grid8score);
         }
     }
