@@ -268,7 +268,7 @@ $(document).ready(function() {
 
 
         
-        $p1score.html("you've won! " + player1score + " is the score for this level...choose next level to play");
+        $p1score.html("you've won, big ups! choose next level to play");
         return true;
       }
         greenTileCount = 0;
