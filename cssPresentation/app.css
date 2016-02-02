@@ -5,7 +5,6 @@ body{
 /*  font-family: 'Lato', sans-serif;*/
   color: beige;
   background-color: black;
-
 }
 
 .container {
@@ -16,12 +15,11 @@ body{
 h1 {
   border-top: 7px solid beige;
   width: 80%;
-  margin-top: -30px;
+  margin-top: 10px;
   margin-left: 10%;
   margin-right: 10%;
   padding-top: 10px;
   font-size: 56px;
-
   }
 
 #score{
@@ -29,16 +27,16 @@ h1 {
   width:80%;
   margin-left:10%;
   margin-right:10%;
-  margin-top: -15px;
+  margin-top: 10px;
   margin-bottom: 30px;
-  padding-top: 25px;
+  padding-top: 15px;
   font-size: 24px;
+  font-weight: italic;
 }
 
 ul {
   height:500px;
   width:500px;
-  list-style: none;
   margin: 0 auto;
   border-radius: 1px;
 }
@@ -72,11 +70,10 @@ ul {
   padding-top: 5px;
 }
 
-li {
+/*li {
   background-color: rgba(214, 4, 4, 0.5);
   color:rgba(100, 239, 170, 0.7);
   border-radius: 0px;
-  /*border:1px solid black;*/
   height: 17%;
   width:17%;
   display: inline-block;
@@ -85,23 +82,22 @@ li {
   font-size: 5em;
   text-align: center;
   vertical-align: middle;
-  line-height: 100%;       /* the same as your div height */
+  line-height: 100%;
   box-sizing: border-box;
 
-}
+}*/
 
-li:hover{
+/*li:hover{
 
   border: 3px solid rgba(255,239,213,0.7);
   box-sizing: border-box;
   border-radius: 3px;
 }
-
+*/
 
 .green {
   background-color: rgba(41, 242, 44, 0.6);
 }
-
 
 .gridSizeSelector{
   cursor: pointer;
@@ -131,7 +127,6 @@ li:hover{
   padding-bottom:50px; 
   background-color: rgba(35,55,35,0.7);
   opacity: 0.5;
-  
 }
 
 #welcomeMessage{
@@ -145,7 +140,7 @@ li:hover{
 }
 
 
-#howtoplay{
+#structure{
   border:2px solid beige;
   border-right: none;
   border-left: none;
@@ -153,15 +148,17 @@ li:hover{
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
-  padding-top: 5px;
-  font-size: 20px;
+  margin-bottom: 20px;
+  /*padding-top: 5px;*/
+  padding-bottom: 5px;
+  font-size: 32px;
 }
 
-#howtoplay:hover{
+/*#howtoplay:hover{
   background-color: beige;
   color:black;
   cursor: pointer;
-}
+}*/
 
 
 #goodLuck{
@@ -175,10 +172,54 @@ li:hover{
   font-size:36px;
 }
 
+#herokuURL {
+  font-size: 28px;
+  margin-top: 150px;
 
+}
 
+#herokuURL:hover {
+  text-decoration: underline;
+  transform: scale(2);
+}
 
+li{
+  padding-top: 5px;
+  padding-bottom:5px;
+}
 
+/*#structure{
+  font-size: 24px;
+  padding-bottom: 5px;
+}*/
+
+#structure:hover{
+  background-color: beige;
+  color:black;
+  cursor: pointer;
+}
+
+p{
+  display:block;
+  font-size: 24px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+a:hover{
+  text-decoration: underline;
+  transform: scale(1.3);
+}
+
+a:visited {
+  color: beige;
+  /*color: rgba(41, 242, 44, 0.4);*/
+  text-decoration: none;
+}
+
+#presentationContent{
+  margin-top: 200px;
+}
 
 @media only screen and (max-width: 640px) {
 

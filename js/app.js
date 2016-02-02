@@ -67,6 +67,7 @@ $(document).ready(function() {
 */
     $instructions.click(function(){
         $instructions.children('p').slideToggle();
+        // window.scrollTo(0, -500);
     });
 
     //on reset click event run resetBoard function and update the text on screen.
