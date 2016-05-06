@@ -1,7 +1,8 @@
 # WDI_Project1 - Litesweeper
 
-## a mobile first, responsive logic game!
+#### a mobile first, responsive logic game!
 
+![Alt text](img/litesweeper.png "litesweeper game")
 
 ##How to Play:
 
@@ -18,4 +19,4 @@ Considering the UX was also another challenging but fun to solve issue - I had t
 ## V2 feature list:
 Once the course has finished I definitely intend to tweak certain aspects of the game, such as improve the score counter, enhance the UI and also add some more game features (2 player for example). As the game is mobile first I would very much like to create a litesweeper app and upload it to the android and Apple stores.
 
-![Alt text](img/litesweeper.png "litesweeper game")
+
