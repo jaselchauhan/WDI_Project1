@@ -2,7 +2,7 @@
 
 #### a mobile first, responsive logic game!
 
-![Alt text](img/litesweeper.png "litesweeper game")
+![Alt text](img/litesweeper.png "litesweeper game" =200x200)
 
 ##How to Play:
 
